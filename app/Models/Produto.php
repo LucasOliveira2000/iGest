@@ -19,7 +19,6 @@ class Produto extends Model
         'valor'
     ];
 
-
     protected static function boot()
     {
         parent::boot();
