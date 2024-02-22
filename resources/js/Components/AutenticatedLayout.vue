@@ -3,13 +3,17 @@
       <header class="header">
         <h1 class="h1_title">
           <img src="../Assets/voxlabs.png" width="50px">
-          VoxLabs
+          iGest
         </h1>
+        <div>
+          <input placeholder="Pesquisar" class="pesquisar">
+        </div>
         <nav>
           <ul class="ul_header">
             <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
             <a href="/create">Contatos</a>
+            <a href="/login">Login</a>
           </ul>
         </nav>
       </header>
@@ -37,6 +41,21 @@
     padding: 0px;
     overflow-x: hidden;
 }
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.pesquisar{
+  display: flex;
+  width: 50vh;
+  height: 30px;
+  border-radius: 10px;
+}
+
 
 .h1_title{
   display: flex;
@@ -109,6 +128,8 @@ a:hover:after, a.active:after{
 main {
   min-height: 100vh;
 }
+
+
 
 
 </style>

@@ -39,23 +39,23 @@ function submit() {
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="nome">Nome:</label>
-                  <input id="nome" type="text" v-model="form.nome">
+                  <input class="input_produto" id="nome" type="text" v-model="form.nome">
               </div>
               <div class="form-group">
                   <label for="marca">Marca:</label>
-                  <input id="marca" type="text" v-model="form.marca">
+                  <input class="input_produto" id="marca" type="text" v-model="form.marca">
               </div>
               <div class="form-group">
                   <label for="quantidade">Quantidade:</label>
-                  <input id="quantidade" type="number" v-model.number="form.quantidade">
+                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade">
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input id="valor" type="text" v-model.number="form.valor">
+                  <input class="input_produto" id="valor" type="text" v-model.number="form.valor">
               </div>
               
               <div class="button-group">
-                  <PrimaryButton type="submit">Cadastrar</PrimaryButton>
+                  <PrimaryButton type="submit">Enviar</PrimaryButton>
               </div>
           </form>
       </div>
@@ -69,16 +69,23 @@ function submit() {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10rem;
 }
 
 .title{
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 20px;
+    background-color: #1D6791;
+    color: white;
+    padding: 5px;
 }
 
 .form {
   width: 300px;
   margin-bottom: 20px;
+  margin-top: 10px;
+  border: 1px solid black;
+  background-color: #ccc;
 }
 
 .form-group {
@@ -95,7 +102,7 @@ function submit() {
 .form-group input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid black;
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -104,5 +111,7 @@ function submit() {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 1rem;
 }
+
 </style>

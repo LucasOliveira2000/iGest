@@ -4,8 +4,6 @@ import PrimaryButton from '../../Components/PrimaryButton.vue'
 import AutenticatedLayout from '../../Components/AutenticatedLayout.vue'
 import SecondaryButton from '../../Components/SecondaryButton.vue'
 import {router} from '@inertiajs/vue3';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
 
 
 const props = defineProps({
@@ -13,8 +11,10 @@ const props = defineProps({
 })
 
 function formatValue(valor) {
-    if (typeof valor === 'decimal') {
-        return valor.replace('.', ',');
+    if (typeof valor === 'number') {
+        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } else if (typeof valor === 'string' && !isNaN(parseFloat(valor))) {
+        return parseFloat(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     return valor;
@@ -40,7 +40,7 @@ function destroy(id){
 <template>
   <AutenticatedLayout>
     <div class="div_criar">
-        <PrimaryButton @click="create">Criar Produto</PrimaryButton>
+        <PrimaryButton @click="create">Cadastrar</PrimaryButton>
     </div>
     
     <section class="section-itens">
@@ -50,8 +50,9 @@ function destroy(id){
           <div class="card-content">
             <p>Nome: {{ produto.nome }}</p>
             <p>Marca: {{ produto.marca }}</p>
-            <p>Quantidade: {{ formatValue(produto.quantidade) }}</p>
-            <p>Valor: {{ produto.valor }}</p>
+            <p>Quantidade: {{ produto.quantidade }}</p>
+            <p>Valor: {{ formatValue(produto.valor) }}</p>
+            
           </div>
           <div class="card-buttons">
             <PrimaryButton type="editar">Editar</PrimaryButton>
@@ -65,61 +66,68 @@ function destroy(id){
 </template>
 
 <style>
-
-.section-itens{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
+.section-itens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 
-.card-container{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 80vw;
-    gap: 30px;
-    margin-bottom: 40px;
-    background-color: rgb(236, 241, 240);
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+  background-color: white;
+  padding: 20px;
 }
 
 .paragrafo_title{
-    display: flex;
-    justify-content: center;
-    color: rgb(255, 255, 255);
-    padding: 5px;
-    margin: 0 auto;
-    width: fit-content;
-    font-size: 20px;
-    background-color: #1D6791;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: black;
 }
 
-
-.card{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 20px;
-    background-color: rgb(210, 216, 216);
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+  width: 210px;
+  margin: 2vh;
+  background-color: rgb(210, 216, 216);
+  border: 3px solid black;
 }
 
-.card-content{
-    display:grid;
-    font-family: Arial, Helvetica, sans-serif;
-    gap: 5px;
+.card-content {
+  display: grid;
+  font-family: Arial, Helvetica, sans-serif;
+  gap: 5px;
 }
 
-.card-buttons{
-    display: flex;
-    gap: 10px;
+.card-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-
-.div_criar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
+.div_criar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
 }
 
+/* Adicionando media query para telas menores */
+@media screen and (max-width: 768px) {
+  .card-container {
+    padding: 10px; /* Reduzindo o padding para telas menores */
+  }
+  .card {
+    width: calc(50% - 40px); /* Reduzindo a largura do card para telas menores */
+  }
+}
 </style>
