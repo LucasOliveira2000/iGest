@@ -53,10 +53,6 @@ class ProdutoController extends Controller
             'valor' => 'required|numeric'
         ]);
 
-    
-
-
-        
         $produto = Produto::create([
             'user_id' => Auth::user()->id, 
             'nome' => $request->nome,
@@ -69,7 +65,6 @@ class ProdutoController extends Controller
         return redirect()->route('produto.home')->with('success', 'Produto ' . $produto->nome . ' criado com sucesso');
     }
 
-   
     public function show(Produto $produto)
     {
         
