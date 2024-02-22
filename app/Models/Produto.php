@@ -12,6 +12,7 @@ class Produto extends Model
 
     protected $fillable = [
         'uuid',
+        'user_id',
         'nome',
         'marca',
         'quantidade',
@@ -27,5 +28,7 @@ class Produto extends Model
             $product->uuid = (string) Str::uuid();
         });
     }
+
+    public function users() {return $this->belongsTo(User::class);}
 
 }

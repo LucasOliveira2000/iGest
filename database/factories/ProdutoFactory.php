@@ -15,6 +15,7 @@ class ProdutoFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => $this->faker->number(1),
             'nome' => $this->faker->word,
             'marca' => $this->faker->company,
             'quantidade' => $this->faker->numberBetween(1, 100),

@@ -54,6 +54,7 @@ class UserController extends Controller
         $user = User::create($userData);
 
         Auth::login($user);
+        $request->session()->regenerate();
 
        return redirect()->route('site.index')->with('success', 'Conta criada com sucesso!');
 
@@ -69,9 +70,13 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('home.index')->with('success', 'Conta logada com sucesso!');
+            
+            return Inertia::render('Site/Index.vue');
+
         }
-        return redirect()->route('home.index')->with('error', 'Email ou senha incorretos!');
+        return Inertia::render('User/Login.vue', [
+            'errorMessage' => 'Email ou senha incorretos!'
+        ]);
     }
 
    
@@ -95,10 +100,11 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
+
         Auth::logout();
 
         $request->session()->invalidate();
 
-        return redirect()->route('home.index')->with('success', 'Conta deslogada com sucesso!');
+        return Inertia::render('Site/Index.vue');
     }
 }

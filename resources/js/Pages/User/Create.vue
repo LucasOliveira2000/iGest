@@ -15,10 +15,11 @@ const form = reactive({
     name: props.user.name,
     email: props.user.email,
     password: props.user.password,
+    remember_token: props.user.remember_token
 });
 
 function handleChange() {
-    form.remember_password = !form.remember_password;
+    form.remember_token = !form.remember_token;
 }
 
 function submit() {
@@ -57,11 +58,13 @@ function submit() {
 
                 <div class="lembrar_senha">
                     <label>Lembrar senha?</label>
-                    <input clas="checkbox" type="checkbox" v-model="form.remember_password" @change="handleChange">
-                    
+                    <input class="checkbox" type="checkbox" v-model="form.remember_password" @change="handleChange">
                 </div>
 
-                <PrimaryButton class="ml-3 mb-5 mt-5" type="submit">Registrar</PrimaryButton>
+                <div class="button_login">
+                    <PrimaryButton type="submit">Registrar</PrimaryButton>
+                </div>
+
 
             </form>
         </section>
@@ -77,8 +80,9 @@ function submit() {
     align-items: center;
     margin: 0 auto;
     margin-top: 25vh;
+    padding: 10px;
     background-color: #ccc;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 5rem;
     width: 30rem;
 }
@@ -124,9 +128,9 @@ function submit() {
 .lembrar_senha{
     display: flex;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
     font-size: 20px;
+    margin-bottom: 30px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: white;
     text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8), 0px 4px 7px rgba(0, 0, 0, 0.8);
@@ -134,8 +138,16 @@ function submit() {
 
 .checkbox{
     display: flex;
-    margin-left: 30px;
+    margin-left: 20px;
 }
+
+.button_login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 </style>
 

@@ -1,36 +1,83 @@
 <script setup>
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import Autenticated from '../../Components/AutenticatedLayout.vue';
+import { defineProps } from 'vue';
+import { reactive } from 'vue';
+import {router} from '@inertiajs/vue3';
+
+
+
+
+const props = defineProps({
+    user: Object,
+    errorMessage: String
+})
+
+
+const form = reactive({
+    email: '',
+    password: '',
+    errorMessage: ''
+});
+
+async function submit() {
+    // Limpar a mensagem de erro
+    form.errorMessage = '';
+
+    // Validar o email e a senha
+    if (!form.email || !form.password) {
+        form.errorMessage = 'Por favor, preencha todos os campos.';
+        return;
+    }
+
+    try {
+        router.post('/login/store', form);
+    
+    } catch (error) {
+        form.errorMessage = 'Credenciais inválidas. Por favor, tente novamente.';
+
+        setTimeout(() => {
+            form.errorMessage = '';
+        }, 2000);
+    }
+
+    console.log(submit)
+}
+
 
 </script>
 
 
 <template>
-    <Autenticated>
+    <Autenticated >
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Login</title>
         </head>
 
+        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+
         <section class="section_1">
-            <form class="form.login">
-                
+            <form  @submit.prevent="submit" class="form.login" enctype="multipart/form-data">
+
                 <div class="h1_div">
                     <h1>Login</h1>
                 </div>
-                
-                <div class="login_nome">
-                    <label for="usuario">Usuário:</label><br>
-                    <input class="input_login" placeholder="Digite seu email" type="text" id="usuario" name="usuario"><br>
+        
+                <div class="login_email">
+                    <label for="email">Email:</label><br>
+                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required><br>
                 </div>
                 
                 <div class="login_senha">
                     <label for="password">Senha: </label><br>
-                    <input class="input_login" placeholder="Digite sua senha" type="password" id="senha" name="senha"><br>
+                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required><br>
                     <a href="/user/create" class="registro">Se cadastre aqui!</a>
-                    <PrimaryButton>Logar</PrimaryButton>
+
+                    <PrimaryButton type="submit">Entrar</PrimaryButton>
                 </div>
+
             </form>
         </section>
     </Autenticated>
@@ -39,14 +86,27 @@ import Autenticated from '../../Components/AutenticatedLayout.vue';
 
 <style>
 
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-top: 30px;
+    text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(219, 198, 198, 0.8), 0px 4px 7px rgba(0, 0, 0, 0.8);
+    
+}
+
 .section_1{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-top: 25vh;
+    padding: 10px;
     background-color: #ccc;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 5rem;
     width: 30rem;
 }
@@ -63,7 +123,7 @@ import Autenticated from '../../Components/AutenticatedLayout.vue';
 }
 
 
-.login_nome {
+.login_email {
     display: flex;
     align-items: center;
     flex-direction: column;
