@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nome')->nullable();
             $table->string('marca');
             $table->integer('quantidade')->nullable();

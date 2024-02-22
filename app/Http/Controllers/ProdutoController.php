@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ProdutoController extends Controller
 {
     
-    public function home(){   
+    public function home()
+    {   
        
-        $produtos = Produto::all();
+        $produtos = Produto::all()->where('user_id', auth()->user()->id);
 
         return Inertia::render('Produto/Home.vue',[
             'produtos'      => $produtos
@@ -19,7 +21,8 @@ class ProdutoController extends Controller
         
     }
 
-    public function index(){
+    public function index()
+    {
         
         return Inertia::render('Site/Index.vue');
 
@@ -28,9 +31,9 @@ class ProdutoController extends Controller
     
     public function create()
     {
-        
-        
+
         return Inertia::render('Produto/Create.vue',[
+            'title'         => 'Criar Produto',
             'produtos'      => [
                 'nome'          => '',
                 'marca'         => '',
@@ -38,28 +41,32 @@ class ProdutoController extends Controller
                 'valor'         => ''
             ]
         ]);
-       
+
     }
 
-    
     public function store(Request $request)
     {
         $request->validate([
-            'nome'          =>  'required|min:4|max:30',
-            'marca'          => 'required|min:4|max:30',
-            'quantidade'    =>  'required|Integer',
-            'valor'         =>  'required|numeric'
+            'nome' => 'required|min:4|max:30',
+            'marca' => 'required|min:4|max:30',
+            'quantidade' => 'required|integer',
+            'valor' => 'required|numeric'
         ]);
 
+    
+
+
+        
         $produto = Produto::create([
-            'nome'          => $request->nome,
-            'marca'         => $request->marca,
-            'quantidade'    => $request->quantidade,
-            'valor'         => $request->valor
+            'user_id' => Auth::user()->id, 
+            'nome' => $request->nome,
+            'marca' => $request->marca,
+            'quantidade' => $request->quantidade,
+            'valor' => $request->valor,
         ]);
 
-        return redirect()->route('produto.home')->with(['message' => 'Produto '. $produto .' criado com sucesso']);
-
+        // Redirecione de volta com uma mensagem de sucesso
+        return redirect()->route('produto.home')->with('success', 'Produto ' . $produto->nome . ' criado com sucesso');
     }
 
    

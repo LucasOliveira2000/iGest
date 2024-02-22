@@ -7,7 +7,7 @@ import { defineProps } from 'vue';
 
 
 const props = defineProps({
-    produtos: Object
+    produtos: Object,
 })
 
 const form = reactive({
@@ -17,14 +17,20 @@ const form = reactive({
     valor: props.produtos.valor ,
 });
 
+function formatCurrency(event) {
+    // Remove qualquer caractere que não seja número, vírgula ou ponto
+    let cleanedValue = event.target.value.replace(/[^\d.,]/g, '');
+
+    // Substitui vírgulas por pontos (formato de ponto flutuante)
+    cleanedValue = cleanedValue.replace(/,/g, '.');
+
+    // Atualiza o valor do v-model com o valor limpo e formatado
+    form.valor = cleanedValue;
+}
+
 
 function submit() {
-
-  if (typeof form.valor === 'string') {
-      form.valor = form.valor.replace(',', '.');
-  }
-
-    router.post('/store' , form)
+  router.post('/store' , form)
 }
 
 
@@ -32,6 +38,9 @@ function submit() {
 
 <template>
   <AutenticatedLayout>
+      <head>
+        <title>Criar Produto</title>
+      </head>
       <div class="container">
           <div class="title">
               <h1>Cadastro de Produtos</h1>
@@ -51,7 +60,7 @@ function submit() {
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input class="input_produto" id="valor" type="text" v-model.number="form.valor">
+                  <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency">
               </div>
               
               <div class="button-group">

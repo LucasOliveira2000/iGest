@@ -39,6 +39,9 @@ function destroy(id){
 
 <template>
   <AutenticatedLayout>
+    <head>
+      <title>Produtos</title>
+    </head>
     <div class="div_criar">
         <PrimaryButton @click="create">Cadastrar</PrimaryButton>
     </div>
