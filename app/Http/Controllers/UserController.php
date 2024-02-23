@@ -56,12 +56,13 @@ class UserController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-       return redirect()->route('site.index')->with('success', 'Conta criada com sucesso!');
+        return Inertia::render('Site/Index.vue');
 
     }
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -70,13 +71,13 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            
             return Inertia::render('Site/Index.vue');
-
         }
+
         return Inertia::render('User/Login.vue', [
             'errorMessage' => 'Email ou senha incorretos!'
         ]);
+
     }
 
    

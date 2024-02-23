@@ -71,14 +71,34 @@ class ProdutoController extends Controller
     }
 
     
-    public function edit(Produto $produto)
+    public function edit(Produto $produto, $id)
     {
+        $produto = Produto::find($id);
+
+        if(!$produto){
+            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+        }
+
+        return Inertia::render('Produto/Edit.vue',[
+            'title'         => 'Editar Produto',
+            'produtos'      => $produto
+        ]);
        
     }
 
     
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, $id)
     {
+
+        $produto = Produto::find($id);
+
+        if(!$produto){
+            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+        }
+
+        $produto->update($request->all());
+
+        return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
         
     }
 

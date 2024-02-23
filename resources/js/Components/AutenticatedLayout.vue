@@ -13,7 +13,7 @@
             <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
             <a href="/create">Contatos</a>
-            <a @click="logout">Logout</a>
+            <a href="" @click="logout">Logout</a>
             <a href="/login">Login</a>
           </ul>
         </nav>
@@ -29,13 +29,15 @@
     </nav>
 </template>
   
+
 <script setup>
 import { router } from '@inertiajs/vue3';
 
-  
+
 function logout(){
 
   router.post('/logout/destroy');
+
 }
 
 

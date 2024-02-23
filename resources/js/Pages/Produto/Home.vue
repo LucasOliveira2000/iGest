@@ -22,8 +22,11 @@ function formatValue(valor) {
 
 
 function create(){
-  
   router.get('/create')
+}
+
+function edit(id){
+  router.get(`/produto/edit/${id}`)
 }
 
 function destroy(id){
@@ -58,7 +61,7 @@ function destroy(id){
             
           </div>
           <div class="card-buttons">
-            <PrimaryButton type="editar">Editar</PrimaryButton>
+            <PrimaryButton @click="edit(produto.id)">Editar</PrimaryButton>
             <SecondaryButton @click="destroy(produto.id)">Excluir</SecondaryButton>
           </div>
         </div>
