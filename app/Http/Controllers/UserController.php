@@ -71,7 +71,10 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return Inertia::render('Site/Index.vue');
+            $isUserOnline = true;
+            return Inertia::render('Site/Index.vue', [
+                'isUserOnline' => $isUserOnline
+            ]);
         }
 
         return Inertia::render('User/Login.vue', [
@@ -101,11 +104,14 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
+        $isUserOnline = false;
 
         Auth::logout();
 
         $request->session()->invalidate();
 
-        return Inertia::render('Site/Index.vue');
+        return Inertia::render('Site/Index.vue', [
+            'isUserOnline' => $isUserOnline
+        ]);
     }
 }

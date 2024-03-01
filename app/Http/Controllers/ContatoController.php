@@ -9,9 +9,7 @@ use Inertia\Inertia;
 
 class ContatoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         
@@ -20,7 +18,7 @@ class ContatoController extends Controller
   
     public function create()
     {
-        return Inertia::render('Contato/Create',[
+        return Inertia::render('Contato/Create.vue',[
             'title' => 'Contato',
             'contato' => [
                 'nome' => '',
@@ -52,7 +50,7 @@ class ContatoController extends Controller
             'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
     ]);
 
-        $contato = Contato::create([
+        Contato::create([
             'user_id'       => Auth::user()->id,
             'nome'          => $request->nome,
             'email'         => $request->email,
@@ -60,7 +58,7 @@ class ContatoController extends Controller
             'mensagem'      => $request->mensagem,
         ]);
 
-        return redirect()->route('contato.index')->with('success', 'Contato enviado com sucesso!');
+        return Inertia::render('Site/Index.vue');
     }
 
    

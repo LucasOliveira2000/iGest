@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,15 @@ Route::middleware(['autenticador', 'verified'])->controller(ProdutoController::c
     Route::get('/produto/edit/{id}', 'edit')->name('produto.edit');
     Route::put('/produto/update/{id}' , 'update')->name('produto.update');
     Route::delete('/produto/{id}', 'destroy')->name('produto.destroy');
+});
+
+Route::middleware(['autenticador', 'verified'])->controller(ContatoController::class)->prefix('contato')->group( function() {
+    Route::get('/index' , 'index')->name('contato.index');
+    Route::get('/create' , 'create')->name('contato.create');
+    Route::post('/store' , 'store')->name('contato.store');
+    Route::get('/edit/{id}', 'edit')->name('contato.edit');
+    Route::put('/update/{id}' , 'update')->name('contato.update');
+    Route::delete('/{id}', 'destroy')->name('contato.destroy');
 });
 
 Route::fallback( function () {

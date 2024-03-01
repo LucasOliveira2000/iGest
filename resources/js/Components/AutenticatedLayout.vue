@@ -12,9 +12,9 @@
           <ul class="ul_header">
             <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
-            <a href="/create">Contatos</a>
-            <a href="" @click="logout">Logout</a>
-            <a href="/login">Login</a>
+            <a href="/contato/create">Contatos</a>
+            <a  href="" @click="logout">Logout</a>
+            <a  href="/login">Login</a>
           </ul>
         </nav>
       </header>
@@ -32,6 +32,9 @@
 
 <script setup>
 import { router } from '@inertiajs/vue3';
+
+
+
 
 
 function logout(){
