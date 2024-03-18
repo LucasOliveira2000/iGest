@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('User/Login.vue');
+        return Inertia::render('User/Login.vue',[
+            'isLoggedIn' => Auth::check()
+        ]);
     }
 
     public function create()
@@ -56,7 +59,7 @@ class UserController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return Inertia::render('Site/Index.vue');
+        return Inertia::render('Site/Second.vue');
 
     }
 
@@ -71,7 +74,7 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return Inertia::render('Site/Index.vue');
+            return Inertia::render('Site/Second.vue');
         }
 
         return Inertia::render('User/Login.vue', [
@@ -79,33 +82,45 @@ class UserController extends Controller
         ]);
 
     }
-
-   
-    public function show(string $id)
+    
+    public function edit($id)
     {
-      
-        
+        $produto = Produto::find($id);
+
+        if(!$produto){
+            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+        }
+
+        return Inertia::render('Produto/Edit.vue',[
+            'title'         => 'Editar Produto',
+            'produtos'      => $produto
+        ]);
+       
     }
 
     
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        
-    }
 
-   
-    public function update(Request $request, string $id)
-    {
+        $produto = Produto::find($id);
+
+        if(!$produto){
+            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+        }
+
+        $produto->update($request->all());
+
+        return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
         
     }
 
     public function destroy(Request $request)
     {
-
         Auth::logout();
 
         $request->session()->invalidate();
-
-        return Inertia::render('Site/Index.vue');
+        $request->session()->regenerateToken();
+        
+        return Inertia::render('Site/Index');
     }
 }

@@ -24,7 +24,7 @@ class ProdutoController extends Controller
     public function index()
     {
         
-        return Inertia::render('Site/Index.vue');
+        return Inertia::render('Site/Second.vue');
 
     }
 

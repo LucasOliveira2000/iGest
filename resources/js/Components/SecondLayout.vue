@@ -10,9 +10,9 @@
         </div>
         <nav>
           <ul class="ul_header">
-            <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
             <a href="/contato/create">Contatos</a>
+            <a href="/logout/destroy" @click.prevent="logout">Logout</a>
           </ul>
         </nav>
       </header>
@@ -26,12 +26,19 @@
       </footer>
     </nav>
 </template>
+  
 
 <script setup>
+import { router } from '@inertiajs/vue3';
 
 
+function logout(){
+  router.post('/logout/destroy');
+}
 
 </script>
+  
+
 <style >
 
 *{

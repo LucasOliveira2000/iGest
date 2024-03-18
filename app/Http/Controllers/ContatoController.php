@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Models\Contato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ContatoController extends Controller
@@ -20,9 +22,9 @@ class ContatoController extends Controller
   
     public function create()
     {
-        return Inertia::render('Contato/Create',[
+        return Inertia::render('Contato/Create.vue',[
             'title' => 'Contato',
-            'contato' => [
+            'contatos' => [
                 'nome' => '',
                 'email' => '',
                 'telefone' => '',
@@ -50,7 +52,7 @@ class ContatoController extends Controller
             'telefone.required' => 'O campo telefone é obrigatório.',
             'telefone.max' => 'O telefone deve ter no máximo 11 caracteres.',
             'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
-    ]);
+        ]);
 
         $contato = Contato::create([
             'user_id'       => Auth::user()->id,
@@ -60,36 +62,14 @@ class ContatoController extends Controller
             'mensagem'      => $request->mensagem,
         ]);
 
-        return redirect()->route('contato.index')->with('success', 'Contato enviado com sucesso!');
+        $this->enviarEmail($contato);
+
+        return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
     }
 
-   
-    public function show(Contato $contato)
+    
+    public function enviarEmail(Contato $contato)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contato $contato)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Contato $contato)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contato $contato)
-    {
-        //
+        Mail::send(new ContactMail($contato));
     }
 }

@@ -1,6 +1,6 @@
 <script setup>
 import PrimaryButton from '../../Components/PrimaryButton.vue'
-import AutenticatedLayout from '../../Components/AutenticatedLayout.vue'
+import SecondLayout from '../../Components/SecondLayout.vue';
 import { reactive } from 'vue';
 import {router} from '@inertiajs/vue3';
 import { defineProps } from 'vue';
@@ -37,7 +37,7 @@ function submit() {
 </script>
 
 <template>
-  <AutenticatedLayout>
+  <SecondLayout>
       <head>
         <title>Criar Produto</title>
       </head>
@@ -68,7 +68,7 @@ function submit() {
               </div>
           </form>
       </div>
-  </AutenticatedLayout>
+  </SecondLayout>
 </template>
 
 

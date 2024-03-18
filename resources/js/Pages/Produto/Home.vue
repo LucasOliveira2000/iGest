@@ -1,8 +1,8 @@
 <script setup>
 
-import PrimaryButton from '../../Components/PrimaryButton.vue'
-import AutenticatedLayout from '../../Components/AutenticatedLayout.vue'
-import SecondaryButton from '../../Components/SecondaryButton.vue'
+import PrimaryButton from '../../Components/PrimaryButton.vue';
+import SecondLayout from '../../Components/SecondLayout.vue';
+import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
 
 
@@ -41,7 +41,7 @@ function destroy(id){
 </script>
 
 <template>
-  <AutenticatedLayout>
+  <SecondLayout>
     <head>
       <title>Produtos</title>
     </head>
@@ -68,7 +68,7 @@ function destroy(id){
       </div>
     </section>
 
-  </AutenticatedLayout>
+  </SecondLayout>
 </template>
 
 <style>
