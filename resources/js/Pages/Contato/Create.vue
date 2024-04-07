@@ -7,7 +7,8 @@ import { defineProps } from 'vue';
 
 
 const props = defineProps({
-    contatos: Object
+    contatos: Object,
+    errors: Object
 })
 
 const form = reactive({
@@ -33,27 +34,31 @@ function submit() {
               <h1>Digite Sua Duvida</h1>
           </div>
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
-              <div class="form-group">
-                  <label for="nome">Nome:</label>
-                  <input class="input_produto" id="nome" type="text" v-model="form.nome">
-              </div>
-              <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input class="input_produto" id="email" type="text" v-model="form.email">
-              </div>
-              <div class="form-group">
-                  <label for="telefone">Telefone:</label>
-                  <input class="input_produto" id="telefone" type="text" v-model="form.telefone">
-              </div>
-              <div class="form-group">
-                  <label for="mensagem">Mensagem:</label>
-                  <input class="input_produto" id="mensagem" type="text" v-model.money="form.mensagem">
-              </div>
-              
-              <div class="button-group">
-                  <PrimaryButton type="submit">Enviar</PrimaryButton>
-              </div>
-          </form>
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input class="input_produto" id="nome" type="text" v-model="form.nome">
+          <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input class="input_produto" id="email" type="text" v-model="form.email">
+          <span v-if="errors.email" class="error">{{ errors.email }}</span>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input class="input_produto" id="telefone" type="text" v-model="form.telefone">
+          <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
+        </div>
+        <div class="form-group">
+          <label for="mensagem">Mensagem:</label>
+          <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem">
+          <span v-if="errors.mensagem" class="error">{{ errors.mensagem }}</span>
+        </div>
+        
+        <div class="button-group">
+          <PrimaryButton type="submit">Enviar</PrimaryButton>
+        </div>
+      </form>
       </div>
   </SecondLayout>
 </template>
@@ -108,6 +113,12 @@ function submit() {
   justify-content: center;
   gap: 20px;
   margin-bottom: 1rem;
+}
+
+.error {
+  color: red; /* Cor vermelha para destacar o erro */
+  font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
+  margin-top: 0.2rem; /* Margem superior pequena para separar do campo de entrada */
 }
 
 </style>

@@ -2,7 +2,7 @@
     <nav class="nav">
       <header class="header">
         <h1 class="h1_title">
-          <img src="../Assets/voxlabs.png" width="50px">
+          <img class="image_banner"  src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
         <div>
@@ -20,9 +20,9 @@
       <main>
       <slot/>
       </main>
-  
+
       <footer class="footer">
-        <p>&copy; Desenvolvido por Lucas Oliveira</p>
+        <p class="p_footer">&copy; Desenvolvido por Lucas Oliveira</p>
       </footer>
     </nav>
 </template>
@@ -136,7 +136,44 @@ main {
   min-height: 100vh;
 }
 
+@media (max-width: 1000px) {
+  .ul_header{
+    display: block;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    margin-right: 20px;
+    gap: 10px;
+    padding: 2px;
+  }
 
+  .image_banner{
+    width: 30px;
+  }
+
+
+  .pesquisar{
+    display: none;
+  }
+
+  .footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0 auto;
+    margin-right: 20px;
+    padding: 20px;
+  }
+
+  .p_footer{
+    display: flex;
+    margin: 0 auto;
+    margin-left: 45px;
+    margin-right: 80px;
+  }
+
+}
 
 
 </style>

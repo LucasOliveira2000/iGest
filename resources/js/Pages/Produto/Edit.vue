@@ -1,6 +1,8 @@
 <script setup>
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { reactive } from 'vue';
 import {router} from '@inertiajs/vue3';
 import { defineProps } from 'vue';
@@ -8,13 +10,15 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     produtos: Object,
+    errors: Object,
+    toast: String
 })
 
 const form = reactive({
     nome: props.produtos.nome ,
     marca: props.produtos.marca ,
     quantidade: props.produtos.quantidade ,
-    valor: props.produtos.valor ,
+    valor: props.produtos.valor
 });
 
 function formatCurrency(event) {
@@ -28,7 +32,6 @@ function formatCurrency(event) {
 
 function submit() {
   const produtoID = props.produtos.id
-
   router.put(`/produto/update/${produtoID}`, form);
 }
 
@@ -48,18 +51,22 @@ function submit() {
               <div class="form-group">
                   <label for="nome">Nome:</label>
                   <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
+                  <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
               </div>
               <div class="form-group">
                   <label for="marca">Marca:</label>
                   <input class="input_produto" id="marca" type="text" v-model="form.marca" required>
+                  <span v-if="errors.marca" class="error">{{ errors.marca }}</span>
               </div>
               <div class="form-group">
                   <label for="quantidade">Quantidade:</label>
                   <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" required>
+                  <span v-if="errors.quantidade" class="error">{{ errors.quantidade }}</span>
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
                   <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency" required>
+                  <span v-if="errors.valor" class="error">{{ errors.valor }}</span>
               </div>
               
               <div class="button-group">
@@ -120,6 +127,22 @@ function submit() {
   justify-content: center;
   gap: 20px;
   margin-bottom: 1rem;
+}
+
+.error {
+  color: red; /* Cor vermelha para destacar o erro */
+  font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
+  margin-top: 0.2rem; /* Margem superior pequena para separar do campo de entrada */
+}
+
+@media (max-width: 625px) {
+  .container {
+    margin: 5rem 1rem; /* Alterado para um espaçamento menor */
+  }
+
+  .form {
+    width: 90%; /* Alterado para ocupar 90% da largura */
+  }
 }
 
 </style>

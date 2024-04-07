@@ -4,6 +4,8 @@ import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 
 const props = defineProps({
@@ -30,12 +32,12 @@ function edit(id){
 }
 
 function destroy(id){
-  router.delete(`/produto/${id}`).then(() => {
-    alert('Produto deletado com sucesso!')
-    router.back()
-  }).catch(error => {
-    console.error('Erro ao deletar o produto:', error)
-  })
+  router.delete(`/produto/${id}`, 
+  toast.success("Produto excluido com sucesso",{
+            position: "top-center",
+            theme: 'colored',
+            autoClose: 2000,
+        }));
 }
 
 </script>

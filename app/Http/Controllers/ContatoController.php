@@ -49,9 +49,14 @@ class ContatoController extends Controller
             'nome.max' => 'O nome não pode ter mais de 100 caracteres.',
             'nome.min' => 'O nome deve ter pelo menos 4 caracteres.',
             'email.required' => 'O email é um campo obrigatório',
+            'email.email'    => 'Esse formato não é um Email',
             'telefone.required' => 'O campo telefone é obrigatório.',
-            'telefone.max' => 'O telefone deve ter no máximo 11 caracteres.',
-            'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
+            'telefone.max' => 'O telefone deve ter no máximo 11 números.',
+            'telefone.min' => 'O telefone deve ter no mínimo 11 números.',
+            'telefone.integer' => 'O telefone deve ser um número inteiro.',
+            'mensagem.required' => 'O campo mensagem é obrigatório.',
+            'mensagem.max' => 'A mensagem não pode ter mais de 500 caracteres.',
+            'mensagem.min' => 'A mensagem deve ter pelo menos 5 caracteres.'
         ]);
 
         $contato = Contato::create([

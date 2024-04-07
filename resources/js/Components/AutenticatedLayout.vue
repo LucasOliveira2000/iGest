@@ -2,7 +2,7 @@
     <nav class="nav">
       <header class="header">
         <h1 class="h1_title">
-          <img src="../Assets/voxlabs.png" width="50px">
+          <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
         <div>
@@ -48,10 +48,12 @@
 
 
 .pesquisar{
-  display: flex;
-  width: 50vh;
+  display: block;
+  width: 30vw;
   height: 35px;
   border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 
@@ -99,6 +101,7 @@ a:hover:after, a.active:after{
     background-color: #1D6791;
     text-align: center;
     min-width: 100%;
+    margin-right: 20px;
     max-width: 100%;
     border: 1px solid black;
     padding: 20px;
@@ -108,7 +111,7 @@ a:hover:after, a.active:after{
 .ul_header{
     display: flex;
     justify-content: space-between;
-    margin-right: 100px;
+    margin-right: 150px;
     gap: 30px;
 }
 
@@ -129,9 +132,35 @@ main {
   min-height: 100vh;
 }
 
+@media (max-width: 1000px) {
+  .ul_header{
+    display: block;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    margin-right: 20px;
+    gap: 10px;
+    padding: 10px;
+  }
 
+  .pesquisar{
+    display: none;
+  }
 
+  .image_banner{
+    width: 30px;
+  }
 
+  .footer{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-right: 20px;
+    padding: 20px;
+  }
+
+}
 </style>
 
   

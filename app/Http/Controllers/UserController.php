@@ -40,6 +40,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.unique' => 'O email já está em uso.',
+            'password.required' => 'O campo senha é obrigatório.',
         ]);
 
         $userData = [
@@ -121,6 +126,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return Inertia::render('Site/Index');
+        return Inertia::render('Site/Index.vue');
     }
 }

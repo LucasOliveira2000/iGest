@@ -16,7 +16,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                 </div>
 
                 <div class="div_h1_title">
-                    <h1>Por que utilizar os nosso serviços?</h1>
+                    <h1 class="title_principal">Por que utilizar os nosso serviços?</h1>
                 </div>
                 
                 <div class="div_cards">
@@ -160,6 +160,26 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     margin-top: 15px;
     font-size: 15px;
 
+}
+
+@media (max-width: 500px) {
+
+    .div_h1_title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .title_principal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        margin: 0 auto;
+        margin-right: 25px;
+        width: 500px;
+    }
 }
 
 
