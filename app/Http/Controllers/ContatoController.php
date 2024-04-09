@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Models\Contato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ContatoController extends Controller
@@ -20,7 +22,7 @@ class ContatoController extends Controller
     {
         return Inertia::render('Contato/Create.vue',[
             'title' => 'Contato',
-            'contato' => [
+            'contatos' => [
                 'nome' => '',
                 'email' => '',
                 'telefone' => '',
@@ -45,10 +47,15 @@ class ContatoController extends Controller
             'nome.max' => 'O nome não pode ter mais de 100 caracteres.',
             'nome.min' => 'O nome deve ter pelo menos 4 caracteres.',
             'email.required' => 'O email é um campo obrigatório',
+            'email.email'    => 'Esse formato não é um Email',
             'telefone.required' => 'O campo telefone é obrigatório.',
-            'telefone.max' => 'O telefone deve ter no máximo 11 caracteres.',
-            'telefone.min' => 'O telefone deve ter no mínimo 11 caracteres.',
-    ]);
+            'telefone.max' => 'O telefone deve ter no máximo 11 números.',
+            'telefone.min' => 'O telefone deve ter no mínimo 11 números.',
+            'telefone.integer' => 'O telefone deve ser um número inteiro.',
+            'mensagem.required' => 'O campo mensagem é obrigatório.',
+            'mensagem.max' => 'A mensagem não pode ter mais de 500 caracteres.',
+            'mensagem.min' => 'A mensagem deve ter pelo menos 5 caracteres.'
+        ]);
 
         Contato::create([
             'user_id'       => Auth::user()->id,
@@ -58,6 +65,9 @@ class ContatoController extends Controller
             'mensagem'      => $request->mensagem,
         ]);
 
+
+        $this->enviarEmail($contato);
+      
         return Inertia::render('Site/Index.vue');
     }
 
@@ -75,19 +85,12 @@ class ContatoController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Contato $contato)
-    {
-        //
+        return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contato $contato)
+    
+    public function enviarEmail(Contato $contato)
     {
-        //
+        Mail::send(new ContactMail($contato));
     }
 }

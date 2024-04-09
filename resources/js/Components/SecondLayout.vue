@@ -2,7 +2,7 @@
     <nav class="nav">
       <header class="header">
         <h1 class="h1_title">
-          <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
+          <img class="image_banner"  src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
         <div>
@@ -10,12 +10,9 @@
         </div>
         <nav>
           <ul class="ul_header">
-            <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
             <a href="/contato/create">Contatos</a>
-            <a  href="" @click="logout">Logout</a>
-            <a  href="/login">Login</a>
-
+            <a href="/logout/destroy" @click.prevent="logout">Logout</a>
           </ul>
         </nav>
       </header>
@@ -23,24 +20,24 @@
       <main>
       <slot/>
       </main>
-  
+
       <footer class="footer">
-        <p>&copy; Desenvolvido por Lucas Oliveira</p>
+        <p class="p_footer">&copy; Desenvolvido por Lucas Oliveira</p>
       </footer>
     </nav>
 </template>
+  
 
 <script setup>
-
 import { router } from '@inertiajs/vue3';
 
 
 function logout(){
-
   router.post('/logout/destroy');
 }
 
 </script>
+  
 
 <style >
 
@@ -58,12 +55,10 @@ function logout(){
 
 
 .pesquisar{
-  display: block;
-  width: 30vw;
+  display: flex;
+  width: 50vh;
   height: 35px;
   border-radius: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 
@@ -111,7 +106,6 @@ a:hover:after, a.active:after{
     background-color: #1D6791;
     text-align: center;
     min-width: 100%;
-    margin-right: 20px;
     max-width: 100%;
     border: 1px solid black;
     padding: 20px;
@@ -121,7 +115,7 @@ a:hover:after, a.active:after{
 .ul_header{
     display: flex;
     justify-content: space-between;
-    margin-right: 150px;
+    margin-right: 100px;
     gap: 30px;
 }
 
@@ -150,27 +144,38 @@ main {
     overflow: hidden;
     margin-right: 20px;
     gap: 10px;
-    padding: 10px;
-  }
-
-  .pesquisar{
-    display: none;
+    padding: 2px;
   }
 
   .image_banner{
     width: 30px;
   }
 
+
+  .pesquisar{
+    display: none;
+  }
+
   .footer{
-    display: block;
+    display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
     margin: 0 auto;
     margin-right: 20px;
     padding: 20px;
   }
 
+  .p_footer{
+    display: flex;
+    margin: 0 auto;
+    margin-left: 45px;
+    margin-right: 80px;
+  }
+
 }
+
+
 </style>
 
   

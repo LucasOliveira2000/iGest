@@ -41,7 +41,7 @@ async function submit() {
         }, 2000);
     }
 
-    console.log(submit)
+
 }
 
 

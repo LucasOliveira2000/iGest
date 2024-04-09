@@ -3,14 +3,21 @@
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
 
 Route::get('/index', function () {
-    return Inertia::render('Site/Index.vue');
+    
+    $logado = Auth::check();
+
+    return Inertia::render('Site/Index.vue',[
+        'logado' => $logado,
+    ]);
 });
+
 
 Route::controller(UserController::class)->group( function(){
     Route::get('/user/create', 'create')->name('user.create');
@@ -28,6 +35,10 @@ Route::middleware(['autenticador', 'verified'])->controller(ProdutoController::c
     Route::put('/produto/update/{id}' , 'update')->name('produto.update');
     Route::delete('/produto/{id}', 'destroy')->name('produto.destroy');
 });
+
+Route::middleware(['autenticador', 'verified'])->controller(ContatoController::class)->group( function() {
+    Route::get('/contato/create', 'create')->name('contato.create');
+    Route::post('/contato/store', 'store')->name('contato.store');
 
 Route::middleware(['autenticador', 'verified'])->controller(ContatoController::class)->prefix('contato')->group( function() {
     Route::get('/index' , 'index')->name('contato.index');

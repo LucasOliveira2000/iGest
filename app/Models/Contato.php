@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
 class Contato extends Model
 {
     use HasFactory;
@@ -29,5 +30,6 @@ class Contato extends Model
     }
 
     public function users() {return $this->belongsTo(User::class);}
+
 
 }

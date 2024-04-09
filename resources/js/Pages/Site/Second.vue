@@ -1,5 +1,5 @@
 <script setup>
-import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
+import SecondLayout from '../../Components/SecondLayout.vue';
 
 </script>
 
@@ -8,7 +8,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
         <title>Home</title>
     </head>
     <section>
-        <AutenticatedLayout>
+        <SecondLayout>
 
             <section>
                 <div class="div_banner">
@@ -21,58 +21,58 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                 
                 <div class="div_cards">
                     <div class="div_unit_card">
-                        <h2 class="h2">Organização</h2>
+                        <h2 class="h2">Controle</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque.png" width="250px" >
-                        </div>                      
-                        <p class="paragrafo"><i>Organize seu estoque com facilidade</i></p> 
+                        </div>
+                        <p class="paragrafo">Comentario da foto 1</p>
                     </div>
 
                     <div class="div_unit_card">
-                        <h2 class="h2">Controle</h2>
+                        <h2 class="h2">Titulo 2</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque2.png" width="250px" >
                         </div>
-                        <p class="paragrafo"><i>Tenha total controle sobre o seu estoque</i></p>
+                        <p class="paragrafo">Comentario da foto 2</p>
                     </div>
 
                     <div class="div_unit_card">
-                        <h2 class="h2">Agilidade</h2>
+                        <h2 class="h2">Titulo 3</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque3.jpg" width="250px" >
                         </div>
                       
-                        <p class="paragrafo"><i>Economize tempo na procura de um produto</i></p>
+                        <p class="paragrafo">Comentario da foto 3</p>
                     </div>
 
                     <div class="div_unit_card">
-                        <h2 class="h2">Financeiro</h2>
+                        <h2 class="h2">Titulo 4</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque4.jpg" width="250px" >
                         </div>
-                        <p class="paragrafo"><i>Reduza sua perca de dinheiro mensal/anual</i></p>
+                        <p class="paragrafo">Comentario da foto 4</p>
                     </div>
 
                     <div class="div_unit_card">
-                        <h2 class="h2">Localização</h2>
+                        <h2 class="h2">Titulo 5</h2>
                         <div class="imagem">
                             <img src="../../Assets/controle.png" width="250px" >
                         </div>
-                        <p class="paragrafo"><i>Localização completa</i></p>
+                        <p class="paragrafo">Comentario da foto 5</p>
                     </div>
 
                     <div class="div_unit_card">
-                        <h2 class="h2">Verificação</h2>
+                        <h2 class="h2">Titulo 6</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque6.png" width="250px" >
                         </div>
-                        <p class="paragrafo"><i>Controle de quantidade e inatividade</i></p>
+                        <p class="paragrafo">Comentario da foto 6</p>
                     </div>
 
                 </div>
                 
             </section>
-        </AutenticatedLayout>
+        </SecondLayout>
     </section>
 </template>
 
@@ -102,6 +102,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     max-width: 100%;
     background-color: #1D6791 ;
     padding: 20px;
+    text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8), 0px 4px 7px rgba(0, 0, 0, 0.8);
 }
 
 .div_cards{
@@ -132,7 +133,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     background-color: #1D6791;
     border-radius: 20px;
     font-family: Arial, Helvetica, sans-serif;
@@ -150,38 +151,32 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
 
 .paragrafo{
     display: flex;
-    justify-content: center;
-    color: black;
     font-family: Arial, Helvetica, sans-serif;
     justify-content: center;
-    margin: 0 auto;
-    height: 50px;
     max-width: 200px;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 15px;
 
 }
 
 @media (max-width: 500px) {
 
-    .div_h1_title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    .title_principal{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        margin: 0 auto;
-        margin-right: 25px;
-        width: 500px;
-    }
+.div_h1_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
-
+.title_principal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 0 auto;
+    margin-right: 25px;
+    width: 500px;
+}
+}
 
 </style>
