@@ -28,4 +28,8 @@ class Contato extends Model
             $product->uuid = (string) Str::uuid();
         });
     }
+
+    public function users() {return $this->belongsTo(User::class);}
+
+
 }

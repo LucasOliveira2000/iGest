@@ -1,6 +1,7 @@
 <script setup>
 import PrimaryButton from '../../Components/PrimaryButton.vue'
 import SecondLayout from '../../Components/SecondLayout.vue';
+import AutenticatedLayout from '../../Components/AutenticatedLayout.vue'
 import { reactive } from 'vue';
 import {router} from '@inertiajs/vue3';
 import { defineProps } from 'vue';
@@ -17,6 +18,27 @@ const form = reactive({
     telefone: '',
     mensagem: '',
 });
+
+    contato: Object,
+})
+
+const form = reactive({
+    nome: props.contato.nome ,
+    email: props.contato.email ,
+    telefone: props.contato.telefone ,
+    mensagem: props.contato.mensagem ,
+});
+
+function formatCurrency(event) {
+    // Remove qualquer caractere que não seja número, vírgula ou ponto
+    let cleanedValue = event.target.value.replace(/[^\d.,]/g, '');
+
+    // Substitui vírgulas por pontos (formato de ponto flutuante)
+    cleanedValue = cleanedValue.replace(/,/g, '.');
+
+    // Atualiza o mensagem do v-model com o mensagem limpo e formatado
+    form.telefone = cleanedValue;
+}
 
 function submit() {
   router.post('/contato/store' , form)
@@ -61,6 +83,43 @@ function submit() {
       </form>
       </div>
   </SecondLayout>
+
+</script>
+
+<template>
+  <AutenticatedLayout>
+      <head>
+        <title>Contato</title>
+      </head>
+      <div class="container">
+          <div class="title">
+              <h1>Formulário para Contato</h1>
+          </div>
+          <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
+              <div class="form-group">
+                  <label for="nome">Nome:</label>
+                  <input class="input_produto" id="nome" type="text" v-model="form.nome">
+              </div>
+              <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input class="input_produto" id="email" type="text" v-model="form.email">
+              </div>
+              <div class="form-group">
+                  <label for="telefone">Telefone:</label>
+                  <input class="input_produto" id="telefone" type="number" v-model.number="form.telefone"  @input="formatCurrency">
+              </div>
+              <div class="form-group">
+                  <label for="mensagem">Mensagem:</label>
+                  <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem">
+              </div>
+              
+              <div class="button-group">
+                  <PrimaryButton type="submit">Enviar</PrimaryButton>
+              </div>
+          </form>
+      </div>
+  </AutenticatedLayout>
+
 </template>
 
 
@@ -79,6 +138,10 @@ function submit() {
     background-color: #1D6791;
     color: white;
     padding: 5px;
+    background-color: #1D6791;
+    color: white;
+    padding: 5px;
+    margin-bottom: 40px;
 }
 
 .form {

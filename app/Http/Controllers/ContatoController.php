@@ -11,9 +11,7 @@ use Inertia\Inertia;
 
 class ContatoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         
@@ -59,7 +57,7 @@ class ContatoController extends Controller
             'mensagem.min' => 'A mensagem deve ter pelo menos 5 caracteres.'
         ]);
 
-        $contato = Contato::create([
+        Contato::create([
             'user_id'       => Auth::user()->id,
             'nome'          => $request->nome,
             'email'         => $request->email,
@@ -67,7 +65,25 @@ class ContatoController extends Controller
             'mensagem'      => $request->mensagem,
         ]);
 
+
         $this->enviarEmail($contato);
+      
+        return Inertia::render('Site/Index.vue');
+    }
+
+   
+    public function show(Contato $contato)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Contato $contato)
+    {
+        //
+    }
 
         return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
     }

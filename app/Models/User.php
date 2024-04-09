@@ -44,4 +44,5 @@ class User extends Authenticatable
     ];
 
     public function produtos()  {return $this->hasMany(Produto::class);}
+    public function contatos()  {return $this->hasMany(Contato::class);}
 }
