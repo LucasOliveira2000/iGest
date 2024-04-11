@@ -39,14 +39,6 @@ Route::middleware(['autenticador', 'verified'])->controller(ProdutoController::c
 Route::middleware(['autenticador', 'verified'])->controller(ContatoController::class)->group( function() {
     Route::get('/contato/create', 'create')->name('contato.create');
     Route::post('/contato/store', 'store')->name('contato.store');
-
-Route::middleware(['autenticador', 'verified'])->controller(ContatoController::class)->prefix('contato')->group( function() {
-    Route::get('/index' , 'index')->name('contato.index');
-    Route::get('/create' , 'create')->name('contato.create');
-    Route::post('/store' , 'store')->name('contato.store');
-    Route::get('/edit/{id}', 'edit')->name('contato.edit');
-    Route::put('/update/{id}' , 'update')->name('contato.update');
-    Route::delete('/{id}', 'destroy')->name('contato.destroy');
 });
 
 Route::fallback( function () {
