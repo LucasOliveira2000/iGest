@@ -57,7 +57,7 @@ class ContatoController extends Controller
             'mensagem.min' => 'A mensagem deve ter pelo menos 5 caracteres.'
         ]);
 
-        Contato::create([
+        $contato = Contato::create([
             'user_id'       => Auth::user()->id,
             'nome'          => $request->nome,
             'email'         => $request->email,
@@ -85,12 +85,10 @@ class ContatoController extends Controller
         //
     }
 
-        return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
-    }
-
-    
     public function enviarEmail(Contato $contato)
     {
         Mail::send(new ContactMail($contato));
+
+        return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
     }
 }
