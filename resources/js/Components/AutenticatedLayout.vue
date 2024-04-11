@@ -13,9 +13,6 @@
             <a href="/index">Home</a>
             <a href="/produto">Produtos</a>
             <a href="/contato/create">Contatos</a>
-            <a  href="" @click="logout">Logout</a>
-            <a  href="/login">Login</a>
-
           </ul>
         </nav>
       </header>
@@ -32,16 +29,9 @@
 
 <script setup>
 
-import { router } from '@inertiajs/vue3';
 
-
-function logout(){
-
-  router.post('/logout/destroy');
-}
 
 </script>
-
 <style >
 
 *{
