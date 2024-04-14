@@ -68,10 +68,9 @@ class ContatoController extends Controller
 
         $this->enviarEmail($contato);
       
-        return Inertia::render('Site/Index.vue');
+        return to_route('produto.home')->with('message', 'Contato enviado com sucesso');
     }
 
-   
     public function show(Contato $contato)
     {
         //

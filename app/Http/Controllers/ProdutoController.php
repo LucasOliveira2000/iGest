@@ -68,10 +68,10 @@ class ProdutoController extends Controller
             'nome'          => $request->nome,
             'marca'         => $request->marca,
             'quantidade'    => $request->quantidade,
-            'valor'         => $request->valor,
+            'valor'         => $request->valor
         ]);
 
-        return redirect()->route('produto.home')->toast('sucesso', 'Produto'.$produto->nome.'criado com sucesso.');
+        return to_route('produto.home')->with('message', 'Produto '.$produto->nome.' cadastrado com sucesso');
     }
 
     public function show(Produto $produto)
@@ -107,24 +107,22 @@ class ProdutoController extends Controller
 
         $produto->update($request->all());
 
-        return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+        return redirect()->route('produto.home')->with('message', 'Produto atualizado com sucesso.');
         
     }
 
    
     public function destroy($id)
-    {
-       
-        $produto = Produto::find($id);
+{
+    $produto = Produto::find($id);
 
-        if (!$produto) {
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
-        }
-
-        $produto->delete();
-
-        return redirect()->route('produto.home')->toast('Contrato criado com Sucesso!!!', 'success');
-     
-
+    if (!$produto) {
+        return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
     }
+
+    $produto->delete();
+
+    return redirect()->route('produto.home')->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
+}
+
 }

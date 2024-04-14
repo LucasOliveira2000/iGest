@@ -16,7 +16,7 @@ Route::get('/index', function () {
     return Inertia::render('Site/Index.vue',[
         'logado' => $logado,
     ]);
-});
+})->name('site.index');
 
 
 Route::controller(UserController::class)->group( function(){

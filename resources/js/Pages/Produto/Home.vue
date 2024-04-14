@@ -6,6 +6,7 @@ import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { ref } from 'vue';
 
 
 const props = defineProps({
@@ -22,22 +23,26 @@ function formatValue(valor) {
     return valor;
 }
 
-
-function create(){
-  router.get('/create')
+function mensagem(msg) {
+  toast.success(msg, {
+      position: "top-center",
+      theme: 'colored',
+      autoClose: 2000,
+      singleton: true,
+      multiple: false
+  });
 }
 
-function edit(id){
-  router.get(`/produto/edit/${id}`)
+function create() {
+    router.get('/create');
+}
+
+function edit(id) {
+    router.get(`/produto/edit/${id}`);
 }
 
 function destroy(id){
-  router.delete(`/produto/${id}`, 
-  toast.success("Produto excluido com sucesso",{
-            position: "top-center",
-            theme: 'colored',
-            autoClose: 2000,
-        }));
+  router.delete(`/produto/${id}`)
 }
 
 </script>
@@ -47,6 +52,9 @@ function destroy(id){
     <head>
       <title>Produtos</title>
     </head>
+    <div v-if="$page.props.flash.message" class="sucess">
+        {{ mensagem($page.props.flash.message)}}
+    </div>
     <div class="div_criar">
         <PrimaryButton @click="create">Cadastrar</PrimaryButton>
     </div>

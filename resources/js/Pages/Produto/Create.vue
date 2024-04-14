@@ -22,31 +22,21 @@ const form = reactive({
 });
 
 function formatCurrency(event) {
-    // Remove qualquer caractere que não seja número, vírgula ou ponto
-    let cleanedValue = event.target.value.replace(/[^\d.,]/g, '');
-
-    // Substitui vírgulas por pontos (formato de ponto flutuante)
-    cleanedValue = cleanedValue.replace(/,/g, '.');
-
-    // Atualiza o valor do v-model com o valor limpo e formatado
-    form.valor = cleanedValue;
+    let cleanedValue = event.target.value.replace(/[^\d.,]/g, ''); // Remove qualquer caractere que não seja número, vírgula ou ponto
+    cleanedValue = cleanedValue.replace(/,/g, '.'); // Substitui vírgulas por pontos (formato de ponto flutuante)
+    form.valor = cleanedValue; // Atualiza o valor do v-model com o valor limpo e formatado
 }
 
 function submit(){
     if(form.nome && form.marca && form.quantidade && form.valor){
-        router.post('/store', form, 
-        toast.success("Produto cadastrado com sucesso",{
-            position: "top-center",
-            theme: 'colored',
-            autoClose: 3000,
-        }));
-    }
-
-    toast.error("Verifique todos os campos",{
+        router.post('/store', form)
+    }else{
+      toast.error("Verifique todos os campos",{
         position: "top-center",
         theme: 'colored',
         autoClose: 2000,
     });
+    }
 }
 
 </script>
@@ -63,7 +53,7 @@ function submit(){
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="nome">Nome:</label>
-                  <input class="input_produto" id="nome" type="text" v-model="form.nome" >
+                  <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
                   <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
               </div>
               <div class="form-group">
@@ -73,12 +63,12 @@ function submit(){
               </div>
               <div class="form-group">
                   <label for="quantidade">Quantidade:</label>
-                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade">
+                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" required>
                   <span v-if="errors.quantidade" class="error">{{ errors.quantidade }}</span>
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency">
+                  <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency" required>
                   <span v-if="errors.valor" class="error">{{ errors.valor }}</span>
               </div>
               <div class="button-group">

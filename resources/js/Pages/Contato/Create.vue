@@ -12,11 +12,15 @@ const props = defineProps({
 })
 
 const form = reactive({
-    nome: '',
-    email: '',
-    telefone: '',
-    mensagem: '',
+    nome: props.contatos.nome,
+    email: props.contatos.email,
+    telefone: props.contatos.telefone,
+    mensagem: props.contatos.mensagem,
 });
+
+function formatTelephone(event) {
+  form.telefone = event.target.value.replace(/\D/g, ''); // Remove qualquer caractere que não seja número
+}
 
 function submit() {
   router.post('/contato/store' , form)
@@ -36,22 +40,22 @@ function submit() {
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nome">Nome:</label>
-          <input class="input_produto" id="nome" type="text" v-model="form.nome">
+          <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
           <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input class="input_produto" id="email" type="text" v-model="form.email">
+          <input class="input_produto" id="email" type="text" v-model="form.email" required>
           <span v-if="errors.email" class="error">{{ errors.email }}</span>
         </div>
         <div class="form-group">
           <label for="telefone">Telefone:</label>
-          <input class="input_produto" id="telefone" type="text" v-model="form.telefone">
+          <input class="input_produto" id="telefone" type="text" v-model.integer="form.telefone" @input="formatTelephone" required>
           <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
         </div>
         <div class="form-group">
           <label for="mensagem">Mensagem:</label>
-          <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem">
+          <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem" required>
           <span v-if="errors.mensagem" class="error">{{ errors.mensagem }}</span>
         </div>
         
@@ -119,6 +123,16 @@ function submit() {
   color: red; /* Cor vermelha para destacar o erro */
   font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
   margin-top: 0.2rem; /* Margem superior pequena para separar do campo de entrada */
+}
+
+@media (max-width: 625px) {
+  .container {
+    margin: 5rem 1rem; /* Alterado para um espaçamento menor */
+  }
+
+  .form {
+    width: 90%; /* Alterado para ocupar 90% da largura */
+  }
 }
 
 </style>
