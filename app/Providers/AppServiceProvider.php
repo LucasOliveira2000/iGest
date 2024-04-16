@@ -12,19 +12,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Inertia::share('flash', function () {
-            return [
-                'success' => session('success'),
-                'error' => session('error'),
-            ];
-        });
+       
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
+        
     }
 }

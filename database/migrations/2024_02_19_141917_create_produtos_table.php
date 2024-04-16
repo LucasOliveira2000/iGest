@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('marca');
             $table->integer('quantidade')->nullable();
             $table->decimal('valor');
+            $table->string('imagem');
             $table->timestamps();
         });
     }

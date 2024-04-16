@@ -15,16 +15,16 @@ const props = defineProps({
 })
 
 const form = reactive({
-    nome: props.produtos.nome ,
-    marca: props.produtos.marca ,
-    quantidade: props.produtos.quantidade ,
-    valor: props.produtos.valor
+  nome:         props.produtos.nome ,
+  marca:        props.produtos.marca ,
+  quantidade:   props.produtos.quantidade ,
+  valor:        props.produtos.valor,
+  imagem:       props.produtos.imagem
 });
 
-function formatCurrency(event) {
-    let cleanedValue = event.target.value.replace(/[^\d.,]/g, ''); // Remove qualquer caractere que não seja número, vírgula ou ponto
-    cleanedValue = cleanedValue.replace(/,/g, '.'); // Substitui vírgulas por pontos (formato de ponto flutuante)
-    form.valor = cleanedValue; // Atualiza o valor do v-model com o valor limpo e formatado
+function handleFileChange(event) {
+    form.imagem = event.target.files[0];
+    form.imagePreview = form.imagem ? URL.createObjectURL(form.imagem) : null;
 }
 
 function submit(){
@@ -38,7 +38,6 @@ function submit(){
     });
     }
 }
-
 </script>
 
 <template>
@@ -68,8 +67,16 @@ function submit(){
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency" required>
+                  <input class="input_produto" id="valor" type="text" v-model="form.valor" required>
                   <span v-if="errors.valor" class="error">{{ errors.valor }}</span>
+              </div>
+              <div class="form-group">
+                  <label for="imagem">Imagem :</label>
+                  <input @change="handleFileChange" type="file" id="imagem" class="form-control" accept="imagem/gif, imagem/jpeg, imagem/png">
+                  <span v-if="errors && errors.imagem" class="error">{{ errors.imagem }}</span>
+                  <div  v-if="form.imagem">
+                      <img :src="form.imagePreview" class="imagem" width="120" height="100"/>
+                  </div>
               </div>
               <div class="button-group">
                   <PrimaryButton  class="submit">Enviar</PrimaryButton>
@@ -141,6 +148,12 @@ function submit(){
   color: red; /* Cor vermelha para destacar o erro */
   font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
   margin-top: 0.2rem; /* Margem superior pequena para separar do campo de entrada */
+}
+
+.imagem{
+  display: flex;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
 @media (max-width: 625px) {

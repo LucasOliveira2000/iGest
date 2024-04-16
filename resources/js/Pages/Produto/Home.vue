@@ -64,10 +64,14 @@ function destroy(id){
         <div v-for="produto in produtos" :key="produto.id" class="card">
             <p class="paragrafo_title">Produto N°{{ produto.id }}</p>
           <div class="card-content">
+            <td>
+                <img v-if="produto.imagem" :src="'/storage/produtos/' + produto.imagem" class="imagem" width="150" height="100"/>
+                <span v-else>Imagem não disponível</span>
+            </td>
             <p>Nome: {{ produto.nome }}</p>
             <p>Marca: {{ produto.marca }}</p>
             <p>Quantidade: {{ produto.quantidade }}</p>
-            <p>Valor: {{ formatValue(produto.valor) }}</p>
+            <p>Valor: {{ "R$ " + formatValue(produto.valor) }}</p>
             
           </div>
           <div class="card-buttons">
@@ -122,7 +126,7 @@ function destroy(id){
 .card-content {
   display: grid;
   font-family: Arial, Helvetica, sans-serif;
-  gap: 5px;
+  gap: 10px;
 }
 
 .card-buttons {
@@ -137,11 +141,22 @@ function destroy(id){
   margin-top: 40px;
 }
 
+.imagem{
+  display: flex;
+  margin: 0 auto;
+}
+
 /* Adicionando media query para telas menores */
 @media screen and (max-width: 768px) {
   .card-container {
     padding: 10px; /* Reduzindo o padding para telas menores */
   }
+
+  .imagem{
+    display: flex;
+    margin: 0 auto;
+  }
+
   .card {
     width: calc(50% - 40px); /* Reduzindo a largura do card para telas menores */
   }

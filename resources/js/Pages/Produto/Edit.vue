@@ -30,9 +30,27 @@ function formatCurrency(event) {
 }
 
 
-function submit() {
-  const produtoID = props.produtos.id
-  router.put(`/produto/update/${produtoID}`, form);
+async function submit() {
+    const formData = new FormData();
+    formData.append('nome', form.nome);
+    formData.append('marca', form.marca);
+    formData.append('quantidade', form.quantidade);
+    formData.append('valor', form.valor);
+    formData.append('imagem', form.imagem);
+
+    const produtoID = props.produtos.id;
+    try {
+        await axios.post(`/produto/update/${produtoID}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        toast.success('Produto atualizado com sucesso!');
+        router.push('/produto.home');
+    } catch (error) {
+        console.error('Erro ao atualizar produto:', error);
+        toast.error('Erro ao atualizar produto. Por favor, tente novamente.');
+    }
 }
 
 

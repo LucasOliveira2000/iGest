@@ -16,7 +16,8 @@ class Produto extends Model
         'nome',
         'marca',
         'quantidade',
-        'valor'
+        'valor',
+        'imagem'
     ];
 
     protected static function boot()
