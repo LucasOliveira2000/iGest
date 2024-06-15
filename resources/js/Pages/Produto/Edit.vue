@@ -18,42 +18,29 @@ const form = reactive({
     nome: props.produtos.nome ,
     marca: props.produtos.marca ,
     quantidade: props.produtos.quantidade ,
-    valor: props.produtos.valor
+    valor: props.produtos.valor,
+    imagePreview: props.produtos.imagem ? `/storage/produtos/${props.produtos.imagem}` : null
 });
 
-function formatCurrency(event) {
-    let cleanedValue = event.target.value.replace(/[^\d.,]/g, '');
-
-    cleanedValue = cleanedValue.replace(/,/g, '.');
-
-    form.valor = cleanedValue;
+function handleFileChange(event) {
+    form.imagem = event.target.files[0];
+    form.imagePreview = form.imagem ? URL.createObjectURL(form.imagem) : null;
 }
 
+function submit() {
 
-async function submit() {
-    const formData = new FormData();
-    formData.append('nome', form.nome);
-    formData.append('marca', form.marca);
-    formData.append('quantidade', form.quantidade);
-    formData.append('valor', form.valor);
-    formData.append('imagem', form.imagem);
+  const produtoID = props.produtos.id;
 
-    const produtoID = props.produtos.id;
-    try {
-        await axios.post(`/produto/update/${produtoID}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        toast.success('Produto atualizado com sucesso!');
-        router.push('/produto.home');
-    } catch (error) {
-        console.error('Erro ao atualizar produto:', error);
-        toast.error('Erro ao atualizar produto. Por favor, tente novamente.');
-    }
+  if(form.nome && form.marca && form.quantidade && form.valor){
+  router.post(`/produto/update/${produtoID}`, form)
+  }else{
+    toast.error("Verifique todos os campos",{
+      position: "top-center",
+      theme: 'colored',
+      autoClose: 2000,
+    });
+  }
 }
-
-
 </script>
 
 <template>
@@ -78,13 +65,21 @@ async function submit() {
               </div>
               <div class="form-group">
                   <label for="quantidade">Quantidade:</label>
-                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" required>
+                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" placeholder="Ex: 1" required>
                   <span v-if="errors.quantidade" class="error">{{ errors.quantidade }}</span>
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input class="input_produto" id="valor" type="text" v-model.money="form.valor" @input="formatCurrency" required>
+                  <input class="input_produto" id="valor" type="text" v-model="form.valor" placeholder="Ex: 13.889,89" required>
                   <span v-if="errors.valor" class="error">{{ errors.valor }}</span>
+              </div>
+              <div class="form-group">
+                <label for="imagem">Imagem :</label>
+                <input @change="handleFileChange" type="file" id="imagem" class="form-control" accept="image/gif, image/jpeg, image/png">
+                <span v-if="errors && errors.imagem" class="error">{{ errors.imagem }}</span>
+                <div v-if="form.imagePreview">
+                  <img :src="form.imagePreview" class="imagem" width="120" height="100"/>
+                </div>
               </div>
               
               <div class="button-group">
@@ -118,7 +113,7 @@ async function submit() {
   margin-bottom: 20px;
   margin-top: 10px;
   border: 1px solid black;
-  background-color: #ccc;
+  box-shadow: 4px 4px rgb(29, 103, 145);
 }
 
 .form-group {
@@ -151,6 +146,10 @@ async function submit() {
   color: red; /* Cor vermelha para destacar o erro */
   font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
   margin-top: 0.2rem; /* Margem superior pequena para separar do campo de entrada */
+}
+
+.imagem{
+  margin-top: 5px;
 }
 
 @media (max-width: 625px) {

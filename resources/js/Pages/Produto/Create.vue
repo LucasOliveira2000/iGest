@@ -28,15 +28,15 @@ function handleFileChange(event) {
 }
 
 function submit(){
-    if(form.nome && form.marca && form.quantidade && form.valor){
-        router.post('/store', form)
-    }else{
-      toast.error("Verifique todos os campos",{
-        position: "top-center",
-        theme: 'colored',
-        autoClose: 2000,
+  if(form.nome && form.marca && form.quantidade && form.valor){
+      router.post('/store', form)
+  }else{
+    toast.error("Verifique todos os campos",{
+      position: "top-center",
+      theme: 'colored',
+      autoClose: 2000,
     });
-    }
+  }
 }
 </script>
 
@@ -108,8 +108,8 @@ function submit(){
   width: 300px;
   margin-bottom: 20px;
   margin-top: 10px;
-  border: 1px solid black;
-  background-color: #ccc;
+  border: 1px solid rgb(29, 103, 145);
+  box-shadow: 4px 4px rgb(29, 103, 145);
 }
 
 .form-group {

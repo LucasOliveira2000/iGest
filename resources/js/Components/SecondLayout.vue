@@ -5,9 +5,6 @@
           <img class="image_banner"  src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
-        <div>
-          <input placeholder="Pesquisar" class="pesquisar">
-        </div>
         <nav>
           <ul class="ul_header">
             <a href="/produto">Produtos</a>
@@ -147,8 +144,14 @@ main {
     padding: 2px;
   }
 
+  .h1_title{
+    width: 150px;
+  }
+
   .image_banner{
-    width: 30px;
+    padding: 5px;
+    max-width: 20px;
+    min-width: 30px;
   }
 
 

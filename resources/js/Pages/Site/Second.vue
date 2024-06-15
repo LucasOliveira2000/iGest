@@ -1,6 +1,5 @@
 <script setup>
 import SecondLayout from '../../Components/SecondLayout.vue';
-
 </script>
 
 <template>
@@ -124,8 +123,8 @@ import SecondLayout from '../../Components/SecondLayout.vue';
     height: 250px;
     max-height: 374px;
     padding: 60px;
-    border: 2px solid black;
     display: block;
+    box-shadow: 4px 4px rgb(29, 103, 145);
 }
 
 .h2{

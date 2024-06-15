@@ -5,22 +5,18 @@ import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
 import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { ref } from 'vue';
-
 
 const props = defineProps({
     produtos: Object
 })
 
 function formatValue(valor) {
-    if (typeof valor === 'number') {
-        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    } else if (typeof valor === 'string' && !isNaN(parseFloat(valor))) {
-        return parseFloat(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    return valor;
+  if (typeof valor === 'number') {
+      return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  } else if (typeof valor === 'string' && !isNaN(parseFloat(valor))) {
+      return parseFloat(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  return valor;
 }
 
 function mensagem(msg) {
@@ -68,16 +64,16 @@ function destroy(id){
                 <img v-if="produto.imagem" :src="'/storage/produtos/' + produto.imagem" class="imagem" width="150" height="100"/>
                 <span v-else>Imagem não disponível</span>
             </td>
-            <p>Nome: {{ produto.nome }}</p>
+            <p class="p">Nome: {{ produto.nome }}</p>
             <p>Marca: {{ produto.marca }}</p>
             <p>Quantidade: {{ produto.quantidade }}</p>
             <p>Valor: {{ "R$ " + formatValue(produto.valor) }}</p>
-            
-          </div>
+          
           <div class="card-buttons">
             <PrimaryButton @click="edit(produto.id)">Editar</PrimaryButton>
             <SecondaryButton @click="destroy(produto.id)">Excluir</SecondaryButton>
           </div>
+        </div>
         </div>
       </div>
     </section>
@@ -101,6 +97,7 @@ function destroy(id){
   margin-bottom: 40px;
   background-color: white;
   padding: 20px;
+  
 }
 
 .paragrafo_title{
@@ -110,17 +107,18 @@ function destroy(id){
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   color: black;
+  box-shadow: 4px 4px rgb(29, 103, 145);
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 20px;
+  gap: 20px;
+  padding: 40px;
   width: 210px;
   margin: 2vh;
-  background-color: rgb(210, 216, 216);
-  border: 3px solid black;
+  border: 1px solid rgb(29, 103, 145);
+  box-shadow: 4px 4px rgb(29, 103, 145);
 }
 
 .card-content {
@@ -131,7 +129,8 @@ function destroy(id){
 
 .card-buttons {
   display: flex;
-  gap: 10px;
+  margin-top: 10px;
+  gap: 15px;
 }
 
 .div_criar {
@@ -141,9 +140,15 @@ function destroy(id){
   margin-top: 40px;
 }
 
+.p{
+  display: flex;
+  margin-top: 10px;
+}
+
 .imagem{
   display: flex;
   margin: 0 auto;
+  box-shadow: 2px 4px 5px rgb(29, 103, 145);
 }
 
 /* Adicionando media query para telas menores */

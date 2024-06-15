@@ -5,9 +5,6 @@
           <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
-        <div>
-          <input placeholder="Pesquisar" class="pesquisar">
-        </div>
         <nav>
           <ul class="ul_header">
             <a href="/index">Home</a>
@@ -62,7 +59,7 @@
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  gap: 20px;
+  gap: 10px;
 }
 
 a{
@@ -136,20 +133,25 @@ main {
   .ul_header{
     display: block;
     align-items: center;
-    flex-direction: row;
     overflow: hidden;
     margin-right: 20px;
-    gap: 10px;
-    padding: 10px;
+    padding: 7px;
   }
 
   .pesquisar{
     display: none;
   }
+  
+  .h1_title{
+    width: 150px;
+  }
 
   .image_banner{
-    width: 30px;
+    padding: 5px;
+    max-width: 20px;
+    min-width: 30px;
   }
+
 
   .footer{
     display: block;

@@ -28,11 +28,11 @@ Route::controller(UserController::class)->group( function(){
 });
 
 Route::middleware(['autenticador', 'verified'])->controller(ProdutoController::class)->group( function() {
-    Route::get('/produto' , 'home')->name('produto.home');
-    Route::get('/create' , 'create')->name('produto.create');
-    Route::post('/store' , 'store')->name('produto.store');
+    Route::get('/produto', 'home')->name('produto.home');
+    Route::get('/create', 'create')->name('produto.create');
+    Route::post('/store', 'store')->name('produto.store');
     Route::get('/produto/edit/{id}', 'edit')->name('produto.edit');
-    Route::put('/produto/update/{id}' , 'update')->name('produto.update');
+    Route::post('/produto/update/{id}', 'update')->name('produto.update');
     Route::delete('/produto/{id}', 'destroy')->name('produto.destroy');
 });
 

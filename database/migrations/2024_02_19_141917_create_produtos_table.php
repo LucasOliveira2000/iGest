@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nome')->nullable();
             $table->string('marca');
             $table->integer('quantidade')->nullable();
-            $table->decimal('valor');
+            $table->decimal('valor', 10, 2);
             $table->string('imagem');
             $table->timestamps();
         });

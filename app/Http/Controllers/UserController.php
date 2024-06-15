@@ -79,7 +79,7 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return Inertia::render('Site/Second.vue');
+            return to_route("produto.home"); //->with('message', 'Seja Bem vindo');
         }
 
         return Inertia::render('User/Login.vue', [

@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class ProdutoController extends Controller
+class ProdutoController extends Controller 
 {
     
     public function home()
     {   
         $produtos = Produto::all()->where('user_id', auth()->user()->id);
-
+        
         return Inertia::render('Produto/Home.vue',[
             'produtos'      => $produtos
         ]);
@@ -46,20 +46,19 @@ class ProdutoController extends Controller
             'nome'              => 'required|min:4|max:20',
             'marca'             => 'required|min:4|max:30',
             'quantidade'        => 'required|integer',
-            'valor'             => 'required|numeric',
-            'imagem'            => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
+            'valor'             => 'required|regex:/^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/',
+            'imagem'            => 'image|mimes:jpeg,png,jpg,gif|max:100000'
         ], [
             'nome.required'         => 'O campo nome é obrigatório.',
             'nome.min'              => 'O campo nome deve ter no mínimo 4 caracteres.',
-            'nome.max'              => 'O campo nome deve ter no máximo 30 caracteres.',
+            'nome.max'              => 'O campo nome deve ter no máximo 40 caracteres.',
             'marca.required'        => 'O campo marca é obrigatório.',
             'marca.min'             => 'O campo marca deve ter no mínimo 4 caracteres.',
             'marca.max'             => 'O campo marca deve ter no máximo 30 caracteres.',
             'quantidade.required'   => 'O campo quantidade é obrigatório.',
             'quantidade.integer'    => 'O campo quantidade deve ser um número inteiro.',
             'valor.required'        => 'O campo valor é obrigatório.',
-            'valor.numeric'         => 'O campo valor deve ser um número.',
-            'imagem.required'       => 'O campo imagem é obrigatório.',
+            'valor.decimal'         => 'O campo valor deve ser um número.',
             'imagem.image'          => 'O campo imagem deve ser uma imagem válida.',
             'imagem.mimes'          => 'A imagem deve ser do tipo: jpeg, png, jpg ou gif.',
             'imagem.max'            => 'A imagem não pode ter mais de 10MB.'
@@ -71,12 +70,16 @@ class ProdutoController extends Controller
             $uploadedImage->storeAs('public/produtos', $imageName);
         }
 
+        //$valor = str_replace(',', '.', str_replace('.', '', $request->valor));
+
+        $valor = converterParaFloat($request->valor);
+
         $produto = Produto::create([
             'user_id'       => Auth::user()->id, 
             'nome'          => $request->nome,
             'marca'         => $request->marca,
             'quantidade'    => $request->quantidade,
-            'valor'         => $request->valor,
+            'valor'         => $valor,
             'imagem'        => $imageName
         ]);
 
@@ -100,6 +103,7 @@ class ProdutoController extends Controller
         return Inertia::render('Produto/Edit.vue',[
             'title'         => 'Editar Produto',
             'produtos'      => [
+                'id'                => $produto->id,
                 'nome'              => $produto->nome,
                 'marca'             => $produto->marca,
                 'quantidade'        => $produto->quantidade,
@@ -122,8 +126,8 @@ class ProdutoController extends Controller
             'nome'              => 'required|min:4|max:20',
             'marca'             => 'required|min:4|max:30',
             'quantidade'        => 'required|integer',
-            'valor'             => 'required|numeric',
-            'imagem'            => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
+            'valor'             => 'required|regex:/^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/',
+            'imagem'            => 'image|mimes:jpeg,png,jpg,gif|max:10000'
         ], [
             'nome.required'         => 'O campo nome é obrigatório.',
             'nome.min'              => 'O campo nome deve ter no mínimo 4 caracteres.',
@@ -134,8 +138,6 @@ class ProdutoController extends Controller
             'quantidade.required'   => 'O campo quantidade é obrigatório.',
             'quantidade.integer'    => 'O campo quantidade deve ser um número inteiro.',
             'valor.required'        => 'O campo valor é obrigatório.',
-            'valor.numeric'         => 'O campo valor deve ser um número.',
-            'imagem.required'       => 'O campo imagem é obrigatório.',
             'imagem.image'          => 'O campo imagem deve ser uma imagem válida.',
             'imagem.mimes'          => 'A imagem deve ser do tipo: jpeg, png, jpg ou gif.',
             'imagem.max'            => 'A imagem não pode ter mais de 10MB.'
@@ -145,14 +147,15 @@ class ProdutoController extends Controller
             $uploadedImage = $request->file('imagem');
             $imageName = time() . '.' . $uploadedImage->getClientOriginalExtension();
             $uploadedImage->storeAs('public/produtos', $imageName);
+            $produto->imagem = $imageName;
         }
-
+    
         $produto->update([
-            'nome'          => $request->nome,
-            'marca'         => $request->marca,
-            'quantidade'    => $request->quantidade,
-            'valor'         => $request->valor,
-            'imagem'        => $imageName
+            'nome'       => $request->nome,
+            'marca'      => $request->marca,
+            'quantidade' => $request->quantidade,
+            'valor'      => converterParaFloat($request->valor),
+            'imagem'     => $produto->imagem 
         ]);
 
         return redirect()->route('produto.home')->with('message', 'Produto '.$produto->nome.' atualizado com sucesso');
@@ -164,12 +167,11 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
 
         if (!$produto) {
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+            return to_route('produto.home')->with('error', 'Registro não encontrado.');
         }
 
         $produto->delete();
 
-        return redirect()->route('produto.home')->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
+        return to_route('produto.home')->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
     }
-
 }
