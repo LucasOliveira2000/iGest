@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProdutoController extends Controller 
@@ -12,12 +13,11 @@ class ProdutoController extends Controller
     
     public function home()
     {   
-        $produtos = Produto::all()->where('user_id', auth()->user()->id);
-        
+        $produtos = Produto::where('user_id', Auth::user()->id)->get();
+
         return Inertia::render('Produto/Home.vue',[
             'produtos'      => $produtos
         ]);
-        
     }
 
     public function index()
@@ -80,7 +80,7 @@ class ProdutoController extends Controller
             'marca'         => $request->marca,
             'quantidade'    => $request->quantidade,
             'valor'         => $valor,
-            'imagem'        => $imageName
+            'imagem'        => $imageName ? $imageName :  public_path('storage/produtos/voxlabs.png')
         ]);
 
         return to_route('produto.home')->with('message', 'Produto '.$produto->nome.' cadastrado com sucesso');
@@ -168,6 +168,17 @@ class ProdutoController extends Controller
 
         if (!$produto) {
             return to_route('produto.home')->with('error', 'Registro não encontrado.');
+        }
+
+        $caminhoImagem = $produto->imagem; 
+
+        if ($caminhoImagem) {
+            Storage::delete('public/produtos/' . basename($caminhoImagem));
+
+            $caminhoPublic = public_path('storage/produtos/' . basename($caminhoImagem));
+            if (file_exists($caminhoPublic)) {
+                unlink($caminhoPublic);
+            }
         }
 
         $produto->delete();

@@ -65,10 +65,12 @@ class ContatoController extends Controller
             'mensagem'      => $request->mensagem,
         ]);
 
-
-        $this->enviarEmail($contato);
-      
-        return to_route('produto.home')->with('message', 'Contato enviado com sucesso');
+        if($contato){
+            $this->enviarEmail($contato);
+            return to_route('produto.home')->with('message', 'Contato para o email '.$contato->email.' enviado com sucesso');
+        }
+        
+        return to_route('contato.create')->with('message', 'Erro ao criar o contato');
     }
 
     public function show(Contato $contato)
@@ -86,8 +88,8 @@ class ContatoController extends Controller
 
     public function enviarEmail(Contato $contato)
     {
-        Mail::send(new ContactMail($contato));
+       $email =  Mail::send(new ContactMail($contato));
 
-        return redirect()->route('produto.home')->with('success', 'Contato enviado com sucesso!');
+        return $email;
     }
 }

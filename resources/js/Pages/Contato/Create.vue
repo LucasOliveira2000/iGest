@@ -31,7 +31,7 @@ function submit() {
 <template>
   <SecondLayout>
       <head>
-        <title>Criar Mensagem</title>
+        <title>Ajuda</title>
       </head>
       <div class="container">
           <div class="title">

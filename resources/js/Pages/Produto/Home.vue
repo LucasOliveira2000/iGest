@@ -1,10 +1,11 @@
 <script setup>
 
+import { Toast } from 'bootstrap';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
-import { toast } from 'vue3-toastify';
+import { Bounce, Flip, toast } from 'vue3-toastify';
 
 const props = defineProps({
     produtos: Object
@@ -25,7 +26,8 @@ function mensagem(msg) {
       theme: 'colored',
       autoClose: 2000,
       singleton: true,
-      multiple: false
+      multiple: false,
+      transition: Flip
   });
 }
 
@@ -37,8 +39,8 @@ function edit(id) {
     router.get(`/produto/edit/${id}`);
 }
 
-function destroy(id){
-  router.delete(`/produto/${id}`)
+function destroy(id) {
+    router.delete(`/produto/${id}`);
 }
 
 </script>
@@ -48,8 +50,8 @@ function destroy(id){
     <head>
       <title>Produtos</title>
     </head>
-    <div v-if="$page.props.flash.message" class="sucess">
-        {{ mensagem($page.props.flash.message)}}
+     <div v-if="$page.props.flash?.message" class="sucess">
+      {{ mensagem($page.props.flash.message) }}
     </div>
     <div class="div_criar">
         <PrimaryButton @click="create">Cadastrar</PrimaryButton>
@@ -149,6 +151,19 @@ function destroy(id){
   display: flex;
   margin: 0 auto;
   box-shadow: 2px 4px 5px rgb(29, 103, 145);
+}
+
+.success {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 /* Adicionando media query para telas menores */
