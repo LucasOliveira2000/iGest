@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 
 Route::get('/index', function () {
-    
+
     $logado = Auth::check();
 
     return Inertia::render('Site/Index.vue',[
@@ -30,6 +30,7 @@ Route::controller(UserController::class)->group( function(){
 Route::middleware(['autenticador', 'verified'])->controller(ProdutoController::class)->group( function() {
     Route::get('/produto', 'home')->name('produto.home');
     Route::get('/create', 'create')->name('produto.create');
+    Route::get('/produto/search', 'search')->name('produto.search');
     Route::post('/store', 'store')->name('produto.store');
     Route::get('/produto/edit/{id}', 'edit')->name('produto.edit');
     Route::post('/produto/update/{id}', 'update')->name('produto.update');

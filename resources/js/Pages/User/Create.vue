@@ -53,7 +53,7 @@ function submit() {
                     <label for="email">Email: </label><br>
                     <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email"><br>
                 </div>
-                
+
                 <div class="login_senha">
                     <label for="password">Senha: </label><br>
                     <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password"><br>
@@ -66,8 +66,6 @@ function submit() {
                 <div class="button_login">
                     <PrimaryButton type="submit">Registrar</PrimaryButton>
                 </div>
-
-
             </form>
         </section>
     </Autenticated>
@@ -87,8 +85,9 @@ function submit() {
     border-radius: 5rem;
     width: 30rem;
     color: #ffffff;
-    box-shadow: 4px 4px rgb(29, 103, 145);
-    
+    border-radius: 5px 60px;
+    box-shadow: 2px 2px 25px 2px #006DA4;
+
 }
 
 .cadastro{
@@ -110,7 +109,7 @@ function submit() {
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1D6791;
-    
+
 }
 
 

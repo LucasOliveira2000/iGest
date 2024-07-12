@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav">
+    <section class="nav">
       <header class="header">
         <h1 class="h1_title">
           <img class="image_banner"  src="../Assets/voxlabs.png" width="50px">
@@ -13,17 +13,17 @@
           </ul>
         </nav>
       </header>
-      
+
       <main>
-      <slot/>
+        <slot/>
       </main>
 
       <footer class="footer">
         <p class="p_footer">&copy; Desenvolvido por Lucas Oliveira</p>
       </footer>
-    </nav>
+    </section>
 </template>
-  
+
 
 <script setup>
 import { router } from '@inertiajs/vue3';
@@ -34,7 +34,7 @@ function logout(){
 }
 
 </script>
-  
+
 
 <style >
 
@@ -42,12 +42,6 @@ function logout(){
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
-}
-
-.nav {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 
@@ -58,6 +52,9 @@ function logout(){
   border-radius: 10px;
 }
 
+.image_banner{
+    margin-left: 60px;
+}
 
 .h1_title{
   display: flex;
@@ -74,7 +71,7 @@ a{
   padding: 10px;
   position: relative;
   font-size: 20px;
- 
+
 }
 
 a:after{
@@ -100,7 +97,7 @@ a:hover:after, a.active:after{
     align-items: center;
     justify-content:space-between;
     color: #fff;
-    background-color: #1D6791;
+    background-color: #022B42;
     text-align: center;
     min-width: 100%;
     max-width: 100%;
@@ -125,7 +122,7 @@ a:hover:after, a.active:after{
     position: relative;
     width: 100%;
     padding: 20px;
-    background-color: #1D6791;
+    background-color: #022B42;
     font-size: 20px;
 }
 
@@ -181,4 +178,3 @@ main {
 
 </style>
 
-  

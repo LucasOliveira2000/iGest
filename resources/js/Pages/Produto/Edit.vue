@@ -81,7 +81,7 @@ function submit() {
                   <img :src="form.imagePreview" class="imagem" width="120" height="100"/>
                 </div>
               </div>
-              
+
               <div class="button-group">
                   <PrimaryButton type="submit">Enviar</PrimaryButton>
               </div>
@@ -106,14 +106,16 @@ function submit() {
     background-color: #1D6791;
     color: white;
     padding: 5px;
+    border-radius: 60px 60px;
 }
 
 .form {
-  width: 300px;
+  width: 350px;
   margin-bottom: 20px;
   margin-top: 10px;
-  border: 1px solid black;
-  box-shadow: 4px 4px rgb(29, 103, 145);
+  background-color: white;
+  border-radius: 5px 60px;
+  box-shadow: 2px 2px 25px 2px #006DA4;
 }
 
 .form-group {

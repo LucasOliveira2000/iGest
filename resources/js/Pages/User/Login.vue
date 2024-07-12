@@ -36,7 +36,7 @@ async function submit() {
 
     try {
         router.post('/login/store', form);
-    
+
     } catch (error) {
         form.errorMessage = 'Credenciais inválidas. Por favor, tente novamente.';
 
@@ -57,7 +57,7 @@ async function submit() {
         </head>
 
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-        
+
         <section class="section_1">
             <form  @submit.prevent="submit" class="form.login" enctype="multipart/form-data">
                 <div class="h1_div">
@@ -68,7 +68,7 @@ async function submit() {
                     <label for="email">Email:</label><br>
                     <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required><br>
                 </div>
-                
+
                 <div class="login_senha">
                     <label for="password">Senha: </label><br>
                     <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required><br>
@@ -76,7 +76,6 @@ async function submit() {
 
                     <PrimaryButton type="submit">Entrar</PrimaryButton>
                 </div>
-
             </form>
         </section>
     </Autenticated>
@@ -94,7 +93,7 @@ async function submit() {
     font-size: 20px;
     margin-top: 30px;
     text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(219, 198, 198, 0.8), 0px 4px 7px rgba(0, 0, 0, 0.8);
-    
+
 }
 
 .section_1{
@@ -107,7 +106,8 @@ async function submit() {
     border: 1px solid #1D6791;
     border-radius: 5rem;
     width: 30rem;
-    box-shadow: 4px 4px rgb(29, 103, 145);
+    border-radius: 5px 60px;
+    box-shadow: 2px 2px 25px 2px #006DA4;
 }
 
 .h1_div{
@@ -161,7 +161,7 @@ async function submit() {
     font-size: 16px;
     color: #1d7691;
     box-shadow: 0px 2px rgb(29, 103, 145);
-    
+
 }
 
 .registro:hover{

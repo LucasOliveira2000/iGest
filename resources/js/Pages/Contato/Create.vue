@@ -38,31 +38,30 @@ function submit() {
               <h1>Digite Sua Duvida</h1>
           </div>
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="nome">Nome:</label>
-          <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
-          <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input class="input_produto" id="email" type="text" v-model="form.email" required>
-          <span v-if="errors.email" class="error">{{ errors.email }}</span>
-        </div>
-        <div class="form-group">
-          <label for="telefone">Telefone:</label>
-          <input class="input_produto" id="telefone" type="text" v-model.integer="form.telefone" @input="formatTelephone" required>
-          <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
-        </div>
-        <div class="form-group">
-          <label for="mensagem">Mensagem:</label>
-          <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem" required>
-          <span v-if="errors.mensagem" class="error">{{ errors.mensagem }}</span>
-        </div>
-        
-        <div class="button-group">
-          <PrimaryButton type="submit">Enviar</PrimaryButton>
-        </div>
-      </form>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
+                    <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="input_produto" id="email" type="text" v-model="form.email" required>
+                    <span v-if="errors.email" class="error">{{ errors.email }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input class="input_produto" id="telefone" type="text" v-model.integer="form.telefone" @input="formatTelephone" required>
+                    <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem:</label>
+                    <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem" required>
+                    <span v-if="errors.mensagem" class="error">{{ errors.mensagem }}</span>
+                </div>
+                <div class="button-group">
+                    <PrimaryButton type="submit">Enviar</PrimaryButton>
+                </div>
+         </form>
       </div>
   </SecondLayout>
 </template>
@@ -83,6 +82,7 @@ function submit() {
     background-color: #1D6791;
     color: white;
     padding: 5px;
+    border-radius: 60px 60px;
 }
 
 .form {
@@ -91,6 +91,11 @@ function submit() {
   margin-top: 10px;
   border: 1px solid rgb(29, 103, 145);
   box-shadow: 4px 4px rgb(29, 103, 145);
+  background-color: white;
+  border-radius: 5px 60px;
+  box-shadow: 2px 2px 25px 2px #006DA4;
+
+
 }
 
 .form-group {

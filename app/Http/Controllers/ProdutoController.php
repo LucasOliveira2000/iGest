@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class ProdutoController extends Controller 
+class ProdutoController extends Controller
 {
-    
+
     public function home()
-    {   
+    {
         $produtos = Produto::where('user_id', Auth::user()->id)->get();
 
         return Inertia::render('Produto/Home.vue',[
+            'title'         => "Produtos",
             'produtos'      => $produtos
         ]);
     }
@@ -25,7 +26,7 @@ class ProdutoController extends Controller
         return Inertia::render('Site/Second.vue');
     }
 
-    
+
     public function create()
     {
         return Inertia::render('Produto/Create.vue',[
@@ -70,12 +71,10 @@ class ProdutoController extends Controller
             $uploadedImage->storeAs('public/produtos', $imageName);
         }
 
-        //$valor = str_replace(',', '.', str_replace('.', '', $request->valor));
-
         $valor = converterParaFloat($request->valor);
 
         $produto = Produto::create([
-            'user_id'       => Auth::user()->id, 
+            'user_id'       => Auth::user()->id,
             'nome'          => $request->nome,
             'marca'         => $request->marca,
             'quantidade'    => $request->quantidade,
@@ -88,10 +87,37 @@ class ProdutoController extends Controller
 
     public function show(Produto $produto)
     {
-        
+
     }
 
-    
+    public function search(Request $request)
+    {
+        $query = Produto::query();
+
+        if ($request->filled('nome')) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
+
+        if ($request->filled('marca')) {
+            $query->where('marca', 'like', '%' . $request->marca . '%');
+        }
+
+        if ($request->filled('valor')) {
+            $query->where('valor', '>=', $request->valor);
+        }
+
+        if ($request->filled('quantidade')) {
+            $query->where('quantidade', '<=', $request->quantidade);
+        }
+
+        $search = $query->get();
+
+        return Inertia::render("Produto/Home.vue", [
+            "search"    => $search
+        ]);
+    }
+
+
     public function edit(Produto $produto, $id)
     {
         $produto = Produto::find($id);
@@ -113,7 +139,7 @@ class ProdutoController extends Controller
         ]);
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $produto = Produto::find($id);
@@ -138,6 +164,7 @@ class ProdutoController extends Controller
             'quantidade.required'   => 'O campo quantidade é obrigatório.',
             'quantidade.integer'    => 'O campo quantidade deve ser um número inteiro.',
             'valor.required'        => 'O campo valor é obrigatório.',
+            'valor.regex'           => 'O formato está invalido.',
             'imagem.image'          => 'O campo imagem deve ser uma imagem válida.',
             'imagem.mimes'          => 'A imagem deve ser do tipo: jpeg, png, jpg ou gif.',
             'imagem.max'            => 'A imagem não pode ter mais de 10MB.'
@@ -149,19 +176,19 @@ class ProdutoController extends Controller
             $uploadedImage->storeAs('public/produtos', $imageName);
             $produto->imagem = $imageName;
         }
-    
+
         $produto->update([
             'nome'       => $request->nome,
             'marca'      => $request->marca,
             'quantidade' => $request->quantidade,
             'valor'      => converterParaFloat($request->valor),
-            'imagem'     => $produto->imagem 
+            'imagem'     => $produto->imagem
         ]);
 
         return redirect()->route('produto.home')->with('message', 'Produto '.$produto->nome.' atualizado com sucesso');
     }
 
-   
+
     public function destroy($id)
     {
         $produto = Produto::find($id);
@@ -170,11 +197,10 @@ class ProdutoController extends Controller
             return to_route('produto.home')->with('error', 'Registro não encontrado.');
         }
 
-        $caminhoImagem = $produto->imagem; 
+        $caminhoImagem = $produto->imagem;
 
         if ($caminhoImagem) {
             Storage::delete('public/produtos/' . basename($caminhoImagem));
-
             $caminhoPublic = public_path('storage/produtos/' . basename($caminhoImagem));
             if (file_exists($caminhoPublic)) {
                 unlink($caminhoPublic);
@@ -183,6 +209,6 @@ class ProdutoController extends Controller
 
         $produto->delete();
 
-        return to_route('produto.home')->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
+        return redirect()->back()->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
     }
 }

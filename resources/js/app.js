@@ -20,7 +20,7 @@ createInertiaApp({
             //components: { QBtn }, // Use QBtn como componente
             plugins: [Notify], // Adicione Notify como plugin
         });
-        app.use(Flowbite); 
+        app.use(Flowbite);
         return app.mount(el);
     },
     progress: {

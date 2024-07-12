@@ -1,13 +1,14 @@
 <script setup>
 
-import { Toast } from 'bootstrap';
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
 import {router} from '@inertiajs/vue3';
-import { Bounce, Flip, toast } from 'vue3-toastify';
+import { Flip, toast } from 'vue3-toastify';
+import { reactive } from 'vue';
 
 const props = defineProps({
+    title: String,
     produtos: Object
 })
 
@@ -43,20 +44,28 @@ function destroy(id) {
     router.delete(`/produto/${id}`);
 }
 
+function search(){
+    router.get('/produto/search', filtro);
+}
+
 </script>
 
 <template>
   <SecondLayout>
     <head>
-      <title>Produtos</title>
+      <title>{{ title }}</title>
     </head>
-     <div v-if="$page.props.flash?.message" class="sucess">
+    <div v-if="$page.props.flash?.message" class="sucess">
       {{ mensagem($page.props.flash.message) }}
     </div>
     <div class="div_criar">
         <PrimaryButton @click="create">Cadastrar</PrimaryButton>
     </div>
-    
+    <!-- <div>
+        <label>Pesquisar Produto</label>
+        <input name="search">
+        <PrimaryButton @click="search">Pesquisar</PrimaryButton>
+    </div> -->
     <section class="section-itens">
       <div class="card-container">
         <div v-for="produto in produtos" :key="produto.id" class="card">
@@ -70,7 +79,7 @@ function destroy(id) {
             <p>Marca: {{ produto.marca }}</p>
             <p>Quantidade: {{ produto.quantidade }}</p>
             <p>Valor: {{ "R$ " + formatValue(produto.valor) }}</p>
-          
+
           <div class="card-buttons">
             <PrimaryButton @click="edit(produto.id)">Editar</PrimaryButton>
             <SecondaryButton @click="destroy(produto.id)">Excluir</SecondaryButton>
@@ -97,9 +106,7 @@ function destroy(id) {
   flex-wrap: wrap;
   gap: 30px;
   margin-bottom: 40px;
-  background-color: white;
   padding: 20px;
-  
 }
 
 .paragrafo_title{
@@ -117,10 +124,11 @@ function destroy(id) {
   flex-direction: column;
   gap: 20px;
   padding: 40px;
+  background-color: white;
   width: 210px;
   margin: 2vh;
-  border: 1px solid rgb(29, 103, 145);
-  box-shadow: 4px 4px rgb(29, 103, 145);
+  border-radius: 5px 60px;
+  box-shadow: 2px 2px 25px 2px #006DA4;
 }
 
 .card-content {

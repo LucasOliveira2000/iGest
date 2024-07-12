@@ -9,7 +9,6 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     </head>
     <section>
         <AutenticatedLayout>
-
             <section>
                 <div class="div_banner">
                     <img src="./../../Assets/banner.png">
@@ -18,14 +17,14 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                 <div class="div_h1_title">
                     <h1 class="title_principal">Por que utilizar os nosso serviços?</h1>
                 </div>
-                
+
                 <div class="div_cards">
                     <div class="div_unit_card">
                         <h2 class="h2">Organização</h2>
                         <div class="imagem">
                             <img src="../../Assets/estoque.png" width="250px" >
-                        </div>                      
-                        <p class="paragrafo"><i>Organize seu estoque com facilidade</i></p> 
+                        </div>
+                        <p class="paragrafo"><i>Organize seu estoque com facilidade</i></p>
                     </div>
 
                     <div class="div_unit_card">
@@ -41,7 +40,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                         <div class="imagem">
                             <img src="../../Assets/estoque3.jpg" width="250px" >
                         </div>
-                      
+
                         <p class="paragrafo"><i>Economize tempo na procura de um produto</i></p>
                     </div>
 
@@ -70,7 +69,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                     </div>
 
                 </div>
-                
+
             </section>
         </AutenticatedLayout>
     </section>
@@ -87,7 +86,6 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     margin-top: 20px;
     width: 130vh;
     max-width: 100%;
-
 }
 
 .div_h1_title{
@@ -100,7 +98,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     color: white;
     min-width: 100%;
     max-width: 100%;
-    background-color: #1D6791 ;
+    background-color: #022B42;
     padding: 20px;
 }
 
@@ -115,7 +113,6 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     margin-bottom: 20px;
     padding: 30px;
     gap: 20px;
-
 }
 
 .div_unit_card{
@@ -133,7 +130,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     align-items: center;
     font-size: 20px;
     color: rgb(255, 255, 255);
-    background-color: #1D6791;
+    background-color: #022B42;
     border-radius: 20px;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 20px;

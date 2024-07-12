@@ -13,11 +13,11 @@
           </ul>
         </nav>
       </header>
-      
+
       <main>
       <slot/>
       </main>
-  
+
       <footer class="footer">
         <p>&copy; Desenvolvido por Lucas Oliveira</p>
       </footer>
@@ -69,7 +69,7 @@ a{
   padding: 10px;
   position: relative;
   font-size: 20px;
- 
+
 }
 
 a:after{
@@ -95,7 +95,7 @@ a:hover:after, a.active:after{
     align-items: center;
     justify-content:space-between;
     color: #fff;
-    background-color: #1D6791;
+    background-color: #022B42;
     text-align: center;
     min-width: 100%;
     margin-right: 20px;
@@ -121,8 +121,12 @@ a:hover:after, a.active:after{
     position: relative;
     width: 100%;
     padding: 20px;
-    background-color: #1D6791;
+    background-color: #022B42;
     font-size: 20px;
+}
+
+.image_banner{
+    margin-left: 50px;
 }
 
 main {
@@ -141,7 +145,7 @@ main {
   .pesquisar{
     display: none;
   }
-  
+
   .h1_title{
     width: 150px;
   }
@@ -165,4 +169,4 @@ main {
 }
 </style>
 
-  
+
