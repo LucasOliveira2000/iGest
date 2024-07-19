@@ -1,16 +1,39 @@
 <script setup>
-
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
-import {router} from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import { Flip, toast } from 'vue3-toastify';
-import { reactive } from 'vue';
+import 'vue3-toastify/dist/index.css';  // Importando o CSS do vue3-toastify
+import { watch, nextTick, defineProps } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     title: String,
-    produtos: Object
+    produtos: Object,
+    flash: Object
 })
+
+const showConfirm = ref(false);
+const confirmCallback = ref(null);
+const produtoIdToDelete = ref(null);
+
+function confirmDelete(id) {
+    produtoIdToDelete.value = id;
+    showConfirm.value = true;
+    confirmCallback.value = () => destroy(id);  // Define a função de callback com o ID do produto
+}
+
+function destroyConfirmed() {
+    showConfirm.value = false;
+    if (confirmCallback.value) {
+        confirmCallback.value();
+    }
+}
+
+function cancelDelete() {
+    showConfirm.value = false;
+}
 
 function formatValue(valor) {
   if (typeof valor === 'number') {
@@ -31,6 +54,13 @@ function mensagem(msg) {
       transition: Flip
   });
 }
+
+watch(() => props.flash, async (newFlash) => {
+  await nextTick();
+  if (newFlash?.message) {
+    mensagem(newFlash.message);
+  }
+}, { immediate: true });
 
 function create() {
     router.get('/create');
@@ -55,17 +85,10 @@ function search(){
     <head>
       <title>{{ title }}</title>
     </head>
-    <div v-if="$page.props.flash?.message" class="sucess">
-      {{ mensagem($page.props.flash.message) }}
-    </div>
     <div class="div_criar">
         <PrimaryButton @click="create">Cadastrar</PrimaryButton>
     </div>
-    <!-- <div>
-        <label>Pesquisar Produto</label>
-        <input name="search">
-        <PrimaryButton @click="search">Pesquisar</PrimaryButton>
-    </div> -->
+
     <section class="section-itens">
       <div class="card-container">
         <div v-for="produto in produtos" :key="produto.id" class="card">
@@ -82,17 +105,62 @@ function search(){
 
           <div class="card-buttons">
             <PrimaryButton @click="edit(produto.id)">Editar</PrimaryButton>
-            <SecondaryButton @click="destroy(produto.id)">Excluir</SecondaryButton>
+            <SecondaryButton @click="() => confirmDelete(produto.id)">Excluir</SecondaryButton>
           </div>
         </div>
         </div>
       </div>
     </section>
-
+    <div v-if="showConfirm" class="confirm-modal">
+      <div class="modal-content">
+        <p>Você tem certeza que deseja excluir este produto?</p>
+        <PrimaryButton @click="destroyConfirmed">Sim</PrimaryButton>
+        <SecondaryButton @click="cancelDelete">Não</SecondaryButton>
+      </div>
+    </div>
   </SecondLayout>
 </template>
 
 <style>
+
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 5px 60px;
+  box-shadow: 2px 2px 25px 2px #006DA4;
+}
+
+.modal-content p {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: black;
+  box-shadow: 4px 4px rgb(29, 103, 145);
+}
+
+.modal-content button {
+  margin: 10px;
+  margin-top: 45px;
+}
+
 .section-itens {
   display: flex;
   flex-direction: column;

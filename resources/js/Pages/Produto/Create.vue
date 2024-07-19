@@ -9,6 +9,7 @@ import { defineProps } from 'vue';
 
 
 const props = defineProps({
+    title: String,
     produtos: Object,
     errors: Object,
     toast: String
@@ -22,6 +23,7 @@ const form = reactive({
   imagem:       props.produtos.imagem
 });
 
+
 function handleFileChange(event) {
     form.imagem = event.target.files[0];
     form.imagePreview = form.imagem ? URL.createObjectURL(form.imagem) : null;
@@ -29,12 +31,12 @@ function handleFileChange(event) {
 
 function submit(){
   if(form.nome && form.marca && form.quantidade && form.valor){
-      router.post('/store', form)
+      router.post('/store', form);
   }else{
     toast.error("Verifique todos os campos",{
       position: "top-center",
       theme: 'colored',
-      autoClose: 2000,
+      autoClose: 2000
     });
   }
 }
@@ -43,7 +45,7 @@ function submit(){
 <template>
   <SecondLayout>
       <head>
-        <title>Criar Produto</title>
+        <title>{{ title }}</title>
       </head>
       <div class="container">
           <div class="title">
@@ -52,22 +54,22 @@ function submit(){
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
               <div class="form-group">
                   <label for="nome">Nome:</label>
-                  <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
+                  <input class="input_produto" id="nome" type="text" v-model="form.nome" placeholder="Nome do Produto" required>
                   <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
               </div>
               <div class="form-group">
                   <label for="marca">Marca:</label>
-                  <input class="input_produto" id="marca" type="text" v-model="form.marca">
+                  <input class="input_produto" id="marca" type="text" v-model="form.marca" placeholder="Marca do Produto">
                   <span v-if="errors.marca" class="error">{{ errors.marca }}</span>
               </div>
               <div class="form-group">
                   <label for="quantidade">Quantidade:</label>
-                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" required>
+                  <input class="input_produto" id="quantidade" type="number" v-model.number="form.quantidade" placeholder="Ex: 199" required>
                   <span v-if="errors.quantidade" class="error">{{ errors.quantidade }}</span>
               </div>
               <div class="form-group">
                   <label for="valor">Valor:</label>
-                  <input class="input_produto" id="valor" type="text" v-model="form.valor" required>
+                  <input class="input_produto" id="valor" type="text" v-model="form.valor" placeholder="Ex: 1.999,99" required>
                   <span v-if="errors.valor" class="error">{{ errors.valor }}</span>
               </div>
               <div class="form-group">

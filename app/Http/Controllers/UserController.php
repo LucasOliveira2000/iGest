@@ -28,12 +28,12 @@ class UserController extends Controller
                 'name' => '',
                 'email' => '',
                 'password' => '',
-                'remember_token' => '', 
+                'remember_token' => '',
             ],
         ]);
     }
-        
-    
+
+
     public function register(Request $request)
     {
         $request->validate([
@@ -54,9 +54,9 @@ class UserController extends Controller
         ];
 
         $user = User::where('email', $request->email)->first();
-        
+
         if ($user) {
-            return redirect()->back()->with('error', 'Email já cadastrado!');
+            return redirect()->back()->with('message', 'Email já cadastrado!');
         }
 
         $user = User::create($userData);
@@ -64,59 +64,61 @@ class UserController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return Inertia::render('Site/Second.vue');
+        return to_route("produto.home")->with("message", "Bem vindo ". Auth::user()->name);
 
     }
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'email'     => 'required|email',
+            'password'  => 'required',
+        ], [
+            'email.required'    => 'O campo email é obrigatório.',
+            'email.email'       => 'Formato de email é invalido.',
+            'password.required' => 'O campo senha é obrigatório.',
         ]);
 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return to_route("produto.home"); //->with('message', 'Seja Bem vindo');
+            return to_route("produto.home")->with("message", "Bem vindo ". Auth::user()->name);
+        }else{
+            return to_route("login.index")->with("message", "Usuário ou Senha incorretos");
         }
 
-        return Inertia::render('User/Login.vue', [
-            'errorMessage' => 'Email ou senha incorretos!'
-        ]);
-
     }
-    
+
     public function edit($id)
     {
         $produto = Produto::find($id);
 
         if(!$produto){
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+            return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
         }
 
         return Inertia::render('Produto/Edit.vue',[
             'title'         => 'Editar Produto',
             'produtos'      => $produto
         ]);
-       
+
     }
 
-    
+
     public function update(Request $request, $id)
     {
 
         $produto = Produto::find($id);
 
         if(!$produto){
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+            return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
         }
 
         $produto->update($request->all());
 
-        return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
-        
+        return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
+
     }
 
     public function destroy(Request $request)
@@ -125,7 +127,7 @@ class UserController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
-        return Inertia::render('Site/Index.vue');
+
+        return to_route("site.index")->with("message", "Deslogado com sucesso!");
     }
 }

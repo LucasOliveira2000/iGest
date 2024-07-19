@@ -40,22 +40,22 @@ function submit() {
           <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nome">Nome:</label>
-                    <input class="input_produto" id="nome" type="text" v-model="form.nome" required>
+                    <input class="input_produto" id="nome" type="text" v-model="form.nome" placeholder="Titulo da Dúvida" required>
                     <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input class="input_produto" id="email" type="text" v-model="form.email" required>
+                    <input class="input_produto" id="email" type="text" v-model="form.email" placeholder="Seu Email ou Email para contato" required>
                     <span v-if="errors.email" class="error">{{ errors.email }}</span>
                 </div>
                 <div class="form-group">
                     <label for="telefone">Telefone:</label>
-                    <input class="input_produto" id="telefone" type="text" v-model.integer="form.telefone" @input="formatTelephone" required>
+                    <input class="input_produto" id="telefone" type="text" v-model.integer="form.telefone" @input="formatTelephone" placeholder="Ex: 8199999-9999" required/>
                     <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
                 </div>
                 <div class="form-group">
                     <label for="mensagem">Mensagem:</label>
-                    <input class="input_produto" id="mensagem" type="text" v-model="form.mensagem" required>
+                    <textarea class="input_textarea" id="mensagem" type="text" v-model="form.mensagem" placeholder="Explique-me a sua dúvida." required/>
                     <span v-if="errors.mensagem" class="error">{{ errors.mensagem }}</span>
                 </div>
                 <div class="button-group">
@@ -122,6 +122,16 @@ function submit() {
   justify-content: center;
   gap: 20px;
   margin-bottom: 1rem;
+}
+
+.input_textarea{
+    width: 100%;
+    height: 180px;
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
 }
 
 .error {

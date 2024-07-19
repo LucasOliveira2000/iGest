@@ -7,7 +7,8 @@ import {router} from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    user: Object
+    user: Object,
+    errors: Object
 })
 
 const form = reactive({
@@ -45,18 +46,21 @@ function submit() {
                 </div>
 
                 <div class="login_nome">
-                    <label for="name">Nome:</label><br>
-                    <input class="input_login" id="name" type="text" v-model="form.name"><br>
+                    <label for="name">Nome:</label>
+                    <input class="input_login" id="name" type="text" v-model="form.name" required>
+                    <span v-if="errors.name" class="error">{{ errors.name }}</span>
                 </div>
 
                 <div class="login_email">
                     <label for="email">Email: </label><br>
-                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email"><br>
+                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required>
+                    <span v-if="errors.email" class="error">{{ errors.email }}</span>
                 </div>
 
                 <div class="login_senha">
-                    <label for="password">Senha: </label><br>
-                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password"><br>
+                    <label for="password">Senha: </label>
+                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required>
+                    <span v-if="errors.password" class="error">{{ errors.password }}</span>
                 </div>
 
                 <div class="lembrar_senha">
@@ -176,6 +180,12 @@ function submit() {
 
 .login:hover{
     color: rgb(0, 207, 17);
+}
+
+.error {
+  color: red; /* Cor vermelha para destacar o erro */
+  font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
+  margin-bottom: 10px;
 }
 
 @media (max-width: 507px) {

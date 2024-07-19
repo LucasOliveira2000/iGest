@@ -1,49 +1,43 @@
 <script setup>
+
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import Autenticated from '../../Components/AutenticatedLayout.vue';
-import { defineProps } from 'vue';
-import { reactive } from 'vue';
-import {router} from '@inertiajs/vue3';
+import { defineProps, reactive, watch, nextTick } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { Flip, toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';  // Importando o CSS do vue3-toastify
 
 const props = defineProps({
     user: Object,
-    errorMessage: String
-})
+    errors: Object,
+    flash: Object
+});
 
 function mensagem(msg) {
-  toast.success(msg, {
+  toast.error(msg, {
       position: "top-center",
       theme: 'colored',
       autoClose: 2000,
       singleton: true,
-      multiple: false
+      multiple: false,
+      transition: Flip
   });
 }
 
+watch(() => props.flash, async (newFlash) => {
+  await nextTick();
+  if (newFlash?.message) {
+    mensagem(newFlash.message);
+  }
+}, { immediate: true });
+
 const form = reactive({
     email: '',
-    password: '',
-    errorMessage: ''
+    password: ''
 });
 
-async function submit() {
-    form.errorMessage = '';
-
-    if (!form.email || !form.password) {
-        form.errorMessage = 'Por favor, preencha todos os campos.';
-        return;
-    }
-
-    try {
-        router.post('/login/store', form);
-
-    } catch (error) {
-        form.errorMessage = 'Credenciais inválidas. Por favor, tente novamente.';
-
-        setTimeout(() => {
-            form.errorMessage = '';
-        }, 2000);
-    }
+function submit() {
+    router.post('/login/store', form);
 }
 
 </script>
@@ -56,8 +50,6 @@ async function submit() {
             <title>Login</title>
         </head>
 
-        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-
         <section class="section_1">
             <form  @submit.prevent="submit" class="form.login" enctype="multipart/form-data">
                 <div class="h1_div">
@@ -66,12 +58,14 @@ async function submit() {
 
                 <div class="login_email">
                     <label for="email">Email:</label><br>
-                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required><br>
+                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required>
+                    <span v-if="errors.email" class="error">{{ errors.email }}</span>
                 </div>
 
                 <div class="login_senha">
                     <label for="password">Senha: </label><br>
-                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required><br>
+                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required>
+                    <span v-if="errors.senha" class="error">{{ errors.senha }}</span>
                     <a href="/user/create" class="registro">Se cadastre aqui!</a>
 
                     <PrimaryButton type="submit">Entrar</PrimaryButton>
@@ -83,18 +77,6 @@ async function submit() {
 </template>
 
 <style>
-
-.error-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: red;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    margin-top: 30px;
-    text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(219, 198, 198, 0.8), 0px 4px 7px rgba(0, 0, 0, 0.8);
-
-}
 
 .section_1{
     display: flex;
@@ -139,6 +121,7 @@ async function submit() {
     flex-direction: column;
     justify-content: center;
     font-size: 20px;
+    margin-top: 5px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1D6791;
 }
@@ -147,6 +130,7 @@ async function submit() {
     display: flex;
     position: relative;
     text-align: center;
+    margin-bottom: 10px;
     height: 25px;
     border-radius: 20px;
     color: black;
@@ -157,11 +141,18 @@ async function submit() {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    margin-top: 15px;
     margin-bottom: 25px;
     font-size: 16px;
     color: #1d7691;
     box-shadow: 0px 2px rgb(29, 103, 145);
 
+}
+
+.error {
+  color: red; /* Cor vermelha para destacar o erro */
+  font-size: 0.8rem; /* Tamanho da fonte menor para as mensagens de erro */
+  margin-top: 1px; /* Margem superior pequena para separar do campo de entrada */
 }
 
 .registro:hover{

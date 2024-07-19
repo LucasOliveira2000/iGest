@@ -15,7 +15,7 @@ class ContactMail extends Mailable
     use Queueable, SerializesModels;
 
     public $contact;
-   
+
     public function __construct(Contato $contact)
     {
         $this->contact = $contact;
@@ -38,10 +38,8 @@ class ContactMail extends Mailable
     {
         return $this->view('emails', ['contact' => $this->contact])
             ->subject('Novo Contato Enviado')
-            ->to('Lucas_Cnpj@outlook.com'); 
+            ->to('j-lucas8@hotmail.com');
     }
-
-    
 
     /**
      * Get the attachments for the message.

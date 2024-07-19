@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class ProdutoController extends Controller
 {
 
-    public function home()
+    public function home(Request $request)
     {
         $produtos = Produto::where('user_id', Auth::user()->id)->get();
 
@@ -123,7 +123,7 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
 
         if(!$produto){
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+            return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
         }
 
         return Inertia::render('Produto/Edit.vue',[
@@ -145,7 +145,7 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
 
         if(!$produto){
-            return redirect()->route('produto.home')->with('error', 'Registro não encontrado.');
+            return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
         }
 
         $request->validate([
@@ -185,7 +185,7 @@ class ProdutoController extends Controller
             'imagem'     => $produto->imagem
         ]);
 
-        return redirect()->route('produto.home')->with('message', 'Produto '.$produto->nome.' atualizado com sucesso');
+        return redirect()->route('produto.home')->with('message', 'Produto atualizado com sucesso');
     }
 
 
@@ -194,7 +194,7 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
 
         if (!$produto) {
-            return to_route('produto.home')->with('error', 'Registro não encontrado.');
+            return to_route('produto.home')->with('message', 'Registro não encontrado.');
         }
 
         $caminhoImagem = $produto->imagem;
@@ -206,9 +206,8 @@ class ProdutoController extends Controller
                 unlink($caminhoPublic);
             }
         }
-
         $produto->delete();
 
-        return redirect()->back()->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
+        return to_route("produto.home")->with('message', 'Produto '.$produto->nome.' deletado com sucesso');
     }
 }
