@@ -2,6 +2,7 @@ FROM php:8.2.7-fpm
 
 # set your user name, ex: user=bernardo
 ARG user=lucas
+ARG uid=2000
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
