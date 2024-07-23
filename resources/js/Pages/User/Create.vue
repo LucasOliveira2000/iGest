@@ -47,19 +47,19 @@ function submit() {
 
                 <div class="login_nome">
                     <label for="name">Nome:</label>
-                    <input class="input_login" id="name" type="text" v-model="form.name" required>
+                    <input class="input_login" id="name" placeholder="Digite seu Nome" type="text" v-model="form.name" required>
                     <span v-if="errors.name" class="error">{{ errors.name }}</span>
                 </div>
 
                 <div class="login_email">
-                    <label for="email">Email: </label><br>
-                    <input class="input_login" placeholder="Digite seu email" type="text" v-model="form.email" required>
+                    <label for="email">Email: </label>
+                    <input class="input_login" placeholder="Digite seu Email" type="text" v-model="form.email" required>
                     <span v-if="errors.email" class="error">{{ errors.email }}</span>
                 </div>
 
                 <div class="login_senha">
                     <label for="password">Senha: </label>
-                    <input class="input_login" placeholder="Digite sua senha" type="password" v-model="form.password" required>
+                    <input class="input_login" placeholder="Digite sua Senha" type="password" v-model="form.password" required>
                     <span v-if="errors.password" class="error">{{ errors.password }}</span>
                 </div>
 
@@ -109,6 +109,7 @@ function submit() {
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 15px;
     justify-content: center;
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -123,6 +124,8 @@ function submit() {
     flex-direction: column;
     justify-content: center;
     font-size: 20px;
+    margin-top: 10px;
+    gap: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1D6791;
 }
@@ -132,6 +135,8 @@ function submit() {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    margin-top: 10px;
+    gap: 15px;
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1D6791;
@@ -142,6 +147,7 @@ function submit() {
     align-items: center;
     justify-content: center;
     font-size: 20px;
+    margin-top: 15px;
     margin-bottom: 30px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #1D6791;

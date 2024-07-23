@@ -59,7 +59,7 @@ class ProdutoController extends Controller
             'quantidade.required'   => 'O campo quantidade é obrigatório.',
             'quantidade.integer'    => 'O campo quantidade deve ser um número inteiro.',
             'valor.required'        => 'O campo valor é obrigatório.',
-            'valor.decimal'         => 'O campo valor deve ser um número.',
+            'valor.regex'           => 'O campo valor deve ser em formato BRL.',
             'imagem.image'          => 'O campo imagem deve ser uma imagem válida.',
             'imagem.mimes'          => 'A imagem deve ser do tipo: jpeg, png, jpg ou gif.',
             'imagem.max'            => 'A imagem não pode ter mais de 10MB.'
@@ -164,7 +164,7 @@ class ProdutoController extends Controller
             'quantidade.required'   => 'O campo quantidade é obrigatório.',
             'quantidade.integer'    => 'O campo quantidade deve ser um número inteiro.',
             'valor.required'        => 'O campo valor é obrigatório.',
-            'valor.regex'           => 'O formato está invalido.',
+            'valor.regex'           => 'O campo valor deve ser em formato BRL.',
             'imagem.image'          => 'O campo imagem deve ser uma imagem válida.',
             'imagem.mimes'          => 'A imagem deve ser do tipo: jpeg, png, jpg ou gif.',
             'imagem.max'            => 'A imagem não pode ter mais de 10MB.'

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('nome');
-            $table->string('email');
-            $table->string('telefone');
-            $table->string('mensagem');
+            $table->string('nome')->nullable();;
+            $table->string('email')->nullable();;
+            $table->string('telefone')->nullable();;
+            $table->string('mensagem')->nullable();;
             $table->timestamps();
         });
     }

@@ -38,12 +38,13 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required|unique:users|email',
             'password' => 'required',
         ], [
-            'name.required' => 'O campo nome é obrigatório.',
-            'email.required' => 'O campo email é obrigatório.',
-            'email.unique' => 'O email já está em uso.',
+            'name.required'     => 'O campo nome é obrigatório.',
+            'email.required'    => 'O campo email é obrigatório.',
+            'email.unique'      => 'O email já está em uso.',
+            'email.email'       => 'O Formato do email é invalido.',
             'password.required' => 'O campo senha é obrigatório.',
         ]);
 
@@ -64,13 +65,12 @@ class UserController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return to_route("produto.home")->with("message", "Bem vindo ". Auth::user()->name);
+        return to_route("produto.home")->with("message", "Bem vindo ". $user->name);
 
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'email'     => 'required|email',
             'password'  => 'required',
@@ -87,7 +87,6 @@ class UserController extends Controller
         }else{
             return to_route("login.index")->with("message", "Usuário ou Senha incorretos");
         }
-
     }
 
     public function edit($id)
@@ -102,13 +101,11 @@ class UserController extends Controller
             'title'         => 'Editar Produto',
             'produtos'      => $produto
         ]);
-
     }
 
 
     public function update(Request $request, $id)
     {
-
         $produto = Produto::find($id);
 
         if(!$produto){
@@ -118,7 +115,6 @@ class UserController extends Controller
         $produto->update($request->all());
 
         return redirect()->route('produto.home')->with('message', 'Registro não encontrado.');
-
     }
 
     public function destroy(Request $request)
