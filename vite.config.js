@@ -14,6 +14,7 @@ export default defineConfig({
         })
     ],
     build: {
+        outDir: 'public/build',
         rollupOptions: {
             output: {
                 assetFileNames: '[name].[hash].[ext]'
