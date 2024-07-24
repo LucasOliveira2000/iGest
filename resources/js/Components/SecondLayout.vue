@@ -2,7 +2,7 @@
     <section class="nav">
       <header class="header">
         <h1 class="h1_title">
-          <img class="image_banner"  src="../Assets/voxlabs.png" width="50px">
+          <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
           iGest
         </h1>
         <nav>

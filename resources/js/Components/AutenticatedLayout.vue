@@ -29,7 +29,8 @@
 
 
 </script>
-<style >
+
+<style>
 
 *{
     margin: 0px;

@@ -16,4 +16,10 @@ export default defineConfig({
             sassVariables: 'resources/css/quasar-variables.sass'
         })
     ],
+    server: {
+        headers: {
+            'Content-Type': 'text/css; charset=UTF-8',
+            'X-Content-Type-Options': 'nosniff',
+        },
+    },
 });
