@@ -17,7 +17,7 @@ import SecondLayout from '../../Components/SecondLayout.vue';
                 <div class="div_h1_title">
                     <h1 class="title_principal">Por que utilizar os nosso serviços?</h1>
                 </div>
-                
+
                 <div class="div_cards">
                     <div class="div_unit_card">
                         <h2 class="h2">Controle</h2>
@@ -40,7 +40,7 @@ import SecondLayout from '../../Components/SecondLayout.vue';
                         <div class="imagem">
                             <img src="../../Assets/estoque3.jpg" width="250px" >
                         </div>
-                      
+
                         <p class="paragrafo">Comentario da foto 3</p>
                     </div>
 
@@ -69,14 +69,14 @@ import SecondLayout from '../../Components/SecondLayout.vue';
                     </div>
 
                 </div>
-                
+
             </section>
         </SecondLayout>
     </section>
 </template>
 
 
-<style>
+<style type="text/css">
 
 .div_banner{
     display: flex;

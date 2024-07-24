@@ -76,7 +76,7 @@ function submit() {
 
 </template>
 
-<style>
+<style type="text/css">
 
 .section_1{
     display: flex;

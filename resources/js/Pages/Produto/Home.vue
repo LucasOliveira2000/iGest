@@ -121,7 +121,7 @@ function search(){
   </SecondLayout>
 </template>
 
-<style>
+<style type="text/css">
 
 .confirm-modal {
   position: fixed;

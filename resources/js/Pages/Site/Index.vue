@@ -76,7 +76,7 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
 </template>
 
 
-<style>
+<style type="text/css">
 
 .div_banner{
     display: flex;

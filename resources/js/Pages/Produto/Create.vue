@@ -89,7 +89,7 @@ function submit(){
 </template>
 
 
-<style>
+<style type="text/css">
 
 .container {
   display: flex;
