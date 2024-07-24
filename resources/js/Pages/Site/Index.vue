@@ -69,7 +69,6 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
                     </div>
 
                 </div>
-
             </section>
         </AutenticatedLayout>
     </section>
