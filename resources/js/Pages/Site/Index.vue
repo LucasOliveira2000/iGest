@@ -74,7 +74,6 @@ import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
     </section>
 </template>
 
-
 <style type="text/css">
 
 .div_banner{
