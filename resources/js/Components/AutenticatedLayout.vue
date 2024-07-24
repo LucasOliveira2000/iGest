@@ -24,13 +24,7 @@
     </nav>
 </template>
 
-<script setup>
-
-
-
-</script>
-
-<style>
+<style type="text/css">
 
 *{
     margin: 0px;

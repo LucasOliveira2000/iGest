@@ -36,7 +36,7 @@ function logout(){
 </script>
 
 
-<style >
+<style type="text/css">
 
 *{
     margin: 0px;
