@@ -25,7 +25,7 @@
 </template>
 
 
-<script setup>
+<script setup type="text/js">
 import { router } from '@inertiajs/vue3';
 
 

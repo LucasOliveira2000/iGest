@@ -1,4 +1,4 @@
-<script setup>
+<script setup type="text/js">
 import AutenticatedLayout from '../../Components/AutenticatedLayout.vue';
 
 </script>
