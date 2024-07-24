@@ -17,8 +17,14 @@ class CustomHeaders
     {
         $response = $next($request);
 
-        if ($response->headers->get('Content-Type') === 'text/html; charset=UTF-8') {
-            $response->headers->set('Content-Type', 'text/css');
+        // Configurar headers para arquivos CSS
+        if ($request->is('assets/*.css')) {
+            $response->headers->set('Content-Type', 'text/css; charset=UTF-8');
+        }
+
+        // Configurar headers para arquivos JS
+        if ($request->is('assets/*.js')) {
+            $response->headers->set('Content-Type', 'application/javascript; charset=UTF-8');
         }
 
         return $response;
