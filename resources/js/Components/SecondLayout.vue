@@ -3,7 +3,7 @@
       <header class="header">
         <h1 class="h1_title">
           <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
-          iGest
+          IGEST
         </h1>
         <nav>
           <ul class="ul_header">
@@ -147,8 +147,8 @@ main {
 
   .image_banner{
     padding: 5px;
-    max-width: 20px;
-    min-width: 30px;
+    max-width: 50px;
+    min-width: 50px;
   }
 
 
@@ -172,6 +172,47 @@ main {
     margin-left: 45px;
     margin-right: 80px;
   }
+
+}
+
+@media (max-width: 546px){
+
+.image_banner{
+    display: flex;
+    margin-right: 10px;
+    margin-left: 10px;
+    max-width: 50px;
+    min-width: 50px;
+}
+
+.h1_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-right: 50px;
+}
+
+.ul_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px;
+    margin-right: 50px;
+    gap: 1px;
+}
+
+.ul_header .a {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+}
 
 }
 

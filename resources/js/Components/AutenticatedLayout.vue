@@ -3,7 +3,7 @@
       <header class="header">
         <h1 class="h1_title">
           <img class="image_banner" src="../Assets/voxlabs.png" width="50px">
-          iGest
+          IGEST
         </h1>
         <nav>
           <ul class="ul_header">
@@ -129,38 +129,76 @@ main {
 }
 
 @media (max-width: 1000px) {
-  .ul_header{
+
+.ul_header{
     display: block;
     align-items: center;
     overflow: hidden;
-    margin-right: 20px;
-    padding: 7px;
-  }
+    gap: 20px;
+    margin-right: 80px;;
+}
 
-  .pesquisar{
+.pesquisar{
     display: none;
-  }
+}
 
-  .h1_title{
-    width: 150px;
-  }
-
-  .image_banner{
+.h1_title{
+    display: flex;
+    justify-content: center;
+    width: 200px;
     padding: 5px;
-    max-width: 20px;
-    min-width: 30px;
-  }
+    gap: 1px;
+}
+
+.image_banner{
+    display: flex;
+    padding: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    max-width: 60px;
+    min-width: 50px;
+}
 
 
-  .footer{
-    display: block;
+.footer{
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     margin-right: 20px;
     padding: 20px;
-  }
+}
 
+}
+
+@media (max-width: 546px){
+
+    .h1_title{
+        display: flex;
+        justify-content: center;
+        margin-right: 50px;
+    }
+
+    .ul_header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        padding: 10px;
+        gap: 1px;
+    }
+
+    .ul_header .a {
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 </style>
 
