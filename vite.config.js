@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 
 export default defineConfig({
-    base: '/',
+    base: './',
     plugins: [
         vue(),
         laravel({
@@ -14,28 +14,12 @@ export default defineConfig({
         })
     ],
     build: {
-    outDir: 'public/build',
-    assetsDir: 'assets',
-    rollupOptions: {
-        output: {
-            assetFileNames: '[name].[hash].[ext]'
+        outDir: 'public/build',
+        assetsDir: 'assets',
+        rollupOptions: {
+            output: {
+                assetFileNames: '[name].[hash].[ext]'
+            }
         }
-    },
-    rollupOptions: {
-      output: {
-        chunkFileNames: '[name]-[hash].js',
-        entryFileNames: '[name]-[hash].js',
-
-        assetFileNames: ({ name }) => {
-          if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-            return '[name]-[hash][extname]'
-          }
-          if (/\.css$/.test(name ?? '')) {
-            return '[name]-[hash][extname]'
-          }
-          return '[name]-[hash][extname]'
-        }
-      }
     }
-  }
 });
