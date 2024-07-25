@@ -14,25 +14,25 @@ export default defineConfig({
         })
     ],
     build: {
-        rollupOptions: {
-          output: {
-            chunkFileNames: '[name]-[hash].js',
-            entryFileNames: '[name]-[hash].js',
+    rollupOptions: {
+      output: {
+        chunkFileNames: '[name]-[hash].js',
+        entryFileNames: '[name]-[hash].js',
 
-            assetFileNames: ({ name }) => {
-              if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-                return '[name]-[hash][extname]'
-              }
-
-              if (/\.css$/.test(name ?? '')) {
-                return '[name]-[hash][extname]'
-              }
-
-              // default value
-              // ref: https://rollupjs.org/guide/en/#outputassetfilenames
-              return '[name]-[hash][extname]'
-            }
+        assetFileNames: ({ name }) => {
+          if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
+            return '[name]-[hash][extname]'
           }
+
+          if (/\.css$/.test(name ?? '')) {
+            return '[name]-[hash][extname]'
+          }
+
+          // default value
+          // ref: https://rollupjs.org/guide/en/#outputassetfilenames
+          return '[name]-[hash][extname]'
         }
       }
+    }
+  }
 });
