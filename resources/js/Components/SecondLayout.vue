@@ -131,47 +131,44 @@ main {
 }
 
 @media (max-width: 1000px) {
-  .ul_header{
+    .ul_header{
     display: block;
     align-items: center;
-    flex-direction: row;
     overflow: hidden;
-    margin-right: 20px;
-    gap: 10px;
-    padding: 2px;
-  }
+    gap: 20px;
+    margin-right: 80px;;
+}
 
-  .h1_title{
-    width: 150px;
-  }
-
-  .image_banner{
-    padding: 5px;
-    max-width: 50px;
-    min-width: 50px;
-  }
-
-
-  .pesquisar{
+.pesquisar{
     display: none;
-  }
+}
 
-  .footer{
+.h1_title{
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    padding: 5px;
+    gap: 1px;
+}
+
+.image_banner{
+    display: flex;
+    padding: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    max-width: 60px;
+    min-width: 50px;
+}
+
+
+.footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
     margin: 0 auto;
     margin-right: 20px;
     padding: 20px;
-  }
-
-  .p_footer{
-    display: flex;
-    margin: 0 auto;
-    margin-left: 45px;
-    margin-right: 80px;
-  }
+}
 
 }
 
