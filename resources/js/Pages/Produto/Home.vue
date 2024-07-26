@@ -2,6 +2,7 @@
 import PrimaryButton from '../../Components/PrimaryButton.vue';
 import SecondLayout from '../../Components/SecondLayout.vue';
 import SecondaryButton from '../../Components/SecondaryButton.vue';
+import TertiaryButton from '../../Components/TertiaryButton.vue';
 import { router } from '@inertiajs/vue3';
 import { Flip, toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';  // Importando o CSS do vue3-toastify
@@ -105,6 +106,7 @@ function search(){
 
           <div class="card-buttons">
             <PrimaryButton @click="edit(produto.id)">Editar</PrimaryButton>
+            <TertiaryButton>Visualizar</TertiaryButton>
             <SecondaryButton @click="() => confirmDelete(produto.id)">Excluir</SecondaryButton>
           </div>
         </div>
@@ -206,9 +208,9 @@ function search(){
 }
 
 .card-buttons {
-  display: flex;
+  display:flex;
   margin-top: 10px;
-  gap: 15px;
+  gap: 5px;
 }
 
 .div_criar {

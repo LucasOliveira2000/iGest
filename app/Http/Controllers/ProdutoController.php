@@ -133,7 +133,7 @@ class ProdutoController extends Controller
                 'nome'              => $produto->nome,
                 'marca'             => $produto->marca,
                 'quantidade'        => $produto->quantidade,
-                'valor'             => $produto->valor,
+                'valor'             => formataDinheiro($produto->valor),
                 'imagem'            => $produto->imagem,
             ]
         ]);
