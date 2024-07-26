@@ -53,7 +53,7 @@
             "@php artisan storage:link"
         ],
         "post-install-cmd": [
-            "@php -r \"if (!file_exists('public/storage')) { exec('php artisan storage:link'); }\""
+            "@php artisan storage:link"
         ]
     },
     "extra": {
