@@ -13,7 +13,7 @@ class ProdutoController extends Controller
 
     public function home(Request $request)
     {
-        $produtos = Produto::where('user_id', Auth::user()->id)->get();
+        $produtos = Produto::where('user_id', Auth::user()->id)->paginate(10);
 
         return Inertia::render('Produto/Home.vue',[
             'title'         => "Produtos",
